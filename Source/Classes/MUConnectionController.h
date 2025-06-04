@@ -7,7 +7,7 @@ extern NSString *MUConnectionClosedNotification;
 
 @interface MUConnectionController : UIView
 + (MUConnectionController *) sharedController;
-- (void) connetToHostname:(NSString *)hostName port:(NSUInteger)port withUsername:(NSString *)userName andPassword:(NSString *)password withParentViewController:(UIViewController *)parentViewController;
+- (void) connectToHostname:(NSString *)hostName port:(NSUInteger)port withUsername:(NSString *)userName andPassword:(NSString *)password withParentViewController:(UIViewController *)parentViewController;
 - (BOOL) isConnected;
 - (void) disconnectFromServer;
 @end
