@@ -23,12 +23,10 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
     MKServerModel              *_serverModel;
     MUServerRootViewController *_serverRoot;
     UIViewController           *_parentViewController;
-    UIAlertView                *_alertView;
+    UIAlertController          *_alertView;
     NSTimer                    *_timer;
     int                        _numDots;
 
-    UIAlertView                *_rejectAlertView;
-    MKRejectReason             _rejectReason;
 
     NSString                   *_hostname;
     NSUInteger                 _port;
@@ -64,21 +62,17 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
 }
 
 - (void) dealloc {
-    [super dealloc];
 
-    [_transitioningDelegate release];
 }
 
 - (void) connetToHostname:(NSString *)hostName port:(NSUInteger)port withUsername:(NSString *)userName andPassword:(NSString *)password withParentViewController:(UIViewController *)parentViewController {
+- (void) connectToHostname:(NSString *)hostName port:(NSUInteger)port withUsername:(NSString *)userName andPassword:(NSString *)password withParentViewController:(UIViewController *)parentViewController {
     _hostname = [hostName retain];
     _port = port;
-    _username = [userName retain];
-    _password = [password retain];
     
     [self showConnectingView];
     [self establishConnection];
     
-    _parentViewController = [parentViewController retain];
 }
 
 - (BOOL) isConnected {
@@ -96,18 +90,25 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
                         NSLocalizedString(@"Connecting to %@:%lu", @"Connecting to hostname:port"),
                             _hostname, (unsigned long)_port];
     
-    _alertView = [[UIAlertView alloc] initWithTitle:title
-                                            message:msg
-                                           delegate:self
-                                  cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                  otherButtonTitles:nil];
-    [_alertView show];
+    _alertView = [[UIAlertController alertControllerWithTitle:title
+                                                     message:msg
+                                              preferredStyle:UIAlertControllerStyleAlert] retain];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction *action) {
+                                                       [self teardownConnection];
+                                                   }];
+    [_alertView addAction:cancel];
+    [_parentViewController presentViewController:_alertView animated:YES completion:nil];
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(updateTitle) userInfo:nil repeats:YES];
 }
 
 - (void) hideConnectingView {
     [_alertView dismissWithClickedButtonIndex:1 animated:YES];
+
+    [_alertView dismissViewControllerAnimated:YES completion:nil];
     [_alertView release];
+
     _alertView = nil;
     [_timer invalidate];
     _timer = nil;
@@ -143,14 +144,11 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
 
 - (void) teardownConnection {
     [_serverModel removeDelegate:self];
-    [_serverModel release];
     _serverModel = nil;
     [_connection setDelegate:nil];
     [_connection disconnect];
-    [_connection release]; 
     _connection = nil;
     [_timer invalidate];
-    [_serverRoot release];
     _serverRoot = nil;
     
     // Reset app badge. The connection is no more.
@@ -171,7 +169,7 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
     if (_numDots == 2) { dots = @".. "; }
     if (_numDots == 3) { dots = @"..."; }
     
-    [_alertView setTitle:[NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Connecting", nil), dots]];
+    _alertView.title = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Connecting", nil), dots];
 }
 
 #pragma mark - MKConnectionDelegate
@@ -190,8 +188,15 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
                                                   cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                   otherButtonTitles:nil];
         [alertView show];
-        [alertView release];
         [self teardownConnection];
+        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Connection closed", nil)
+                                                                           message:[err localizedDescription]
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self teardownConnection];
+        }];
+        [alertView addAction:ok];
+        [_parentViewController presentViewController:alertView animated:YES completion:nil];
     }
 }
 
@@ -221,8 +226,17 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
                                               cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                               otherButtonTitles:nil];
     [alertView show];
-    [alertView release];
     [self teardownConnection];
+    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to connect", nil)
+                                                                       message:msg
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                 style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction *action){
+                                                   [self teardownConnection];
+                                               }];
+    [alertView addAction:ok];
+    [_parentViewController presentViewController:alertView animated:YES completion:nil];
 }
 
 // The connection encountered an invalid SSL certificate chain.
@@ -252,7 +266,18 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
             [alert addButtonWithTitle:NSLocalizedString(@"Trust New Certificate", nil)];
             [alert addButtonWithTitle:NSLocalizedString(@"Show Certificates", nil)];
             [alert show];
-            [alert release];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                           message:msg
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){ [self teardownConnection]; }];
+            UIAlertAction *ignore = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ignore", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){ [_connection setIgnoreSSLVerification:YES]; [_connection reconnect]; [self showConnectingView]; }];
+            UIAlertAction *trust = [UIAlertAction actionWithTitle:NSLocalizedString(@"Trust New Certificate", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){ MKCertificate *cert = [[_connection peerCertificates] objectAtIndex:0]; NSString *digest = [cert hexDigest]; [MUDatabase storeDigest:digest forServerWithHostname:[_connection hostname] port:[_connection port]]; [_connection setIgnoreSSLVerification:YES]; [_connection reconnect]; [self showConnectingView]; }];
+            UIAlertAction *show = [UIAlertAction actionWithTitle:NSLocalizedString(@"Show Certificates", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){ MUServerCertificateTrustViewController *certTrustView = [[MUServerCertificateTrustViewController alloc] initWithCertificates:[_connection peerCertificates]]; [certTrustView setDelegate:self]; UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:certTrustView]; [certTrustView release]; [_parentViewController presentModalViewController:navCtrl animated:YES]; [navCtrl release]; }];
+            [alert addAction:cancel];
+            [alert addAction:ignore];
+            [alert addAction:trust];
+            [alert addAction:show];
+            [_parentViewController presentViewController:alert animated:YES completion:nil];
         }
     } else {
         // No certhash of this certificate in the database for this hostname-port combo.  Let the user decide
@@ -269,7 +294,6 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
         [alert addButtonWithTitle:NSLocalizedString(@"Trust Certificate", nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"Show Certificates", nil)];
         [alert show];
-        [alert release];
     }
 }
 
@@ -277,7 +301,7 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
 - (void) connection:(MKConnection *)conn rejectedWithReason:(MKRejectReason)reason explanation:(NSString *)explanation {
     NSString *title = NSLocalizedString(@"Connection Rejected", nil);
     NSString *msg = nil;
-    UIAlertView *alert = nil;
+    UIAlertController *alert = nil;
     
     [self hideConnectingView];
     [self teardownConnection];
@@ -285,76 +309,116 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
     switch (reason) {
         case MKRejectReasonNone:
             msg = NSLocalizedString(@"No reason", nil);
-            alert = [[UIAlertView alloc] initWithTitle:title
-                                               message:msg
-                                              delegate:nil
-                                     cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                     otherButtonTitles:nil];
+            alert = [UIAlertController alertControllerWithTitle:title
+                                                        message:msg
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:nil]];
             break;
         case MKRejectReasonWrongVersion:
             msg = @"Client/server version mismatch";
-            alert = [[UIAlertView alloc] initWithTitle:title
-                                               message:msg
-                                              delegate:nil
-                                     cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                     otherButtonTitles:nil];
+            alert = [UIAlertController alertControllerWithTitle:title
+                                                        message:msg
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:nil]];
 
             break;
         case MKRejectReasonInvalidUsername:
             msg = NSLocalizedString(@"Invalid username", nil);
-            alert = [[UIAlertView alloc] initWithTitle:title
-                                               message:msg
-                                              delegate:self
-                                     cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                     otherButtonTitles:NSLocalizedString(@"Reconnect", nil), nil];
-            [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-            [[alert textFieldAtIndex:0] setText:_username];
+            alert = [UIAlertController alertControllerWithTitle:title
+                                                        message:msg
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *tf){ tf.text = _username; }];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:nil]];
+            __weak UIAlertController *weakAlert = alert;
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reconnect", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *a){
+                                                        [_username release];
+                                                        _username = [[weakAlert.textFields[0] text] copy];
+                                                        [self establishConnection];
+                                                        [self showConnectingView];
+                                                    }]];
             break;
         case MKRejectReasonWrongUserPassword:
             msg = NSLocalizedString(@"Wrong certificate or password for existing user", nil);
-            alert = [[UIAlertView alloc] initWithTitle:title
-                                               message:msg
-                                              delegate:self
-                                     cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                     otherButtonTitles:NSLocalizedString(@"Reconnect", nil), nil];
-            [alert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-            [[alert textFieldAtIndex:0] setText:_password];
+            alert = [UIAlertController alertControllerWithTitle:title
+                                                        message:msg
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *tf){ tf.secureTextEntry = YES; tf.text = _password; }];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:nil]];
+            __weak UIAlertController *weakAlertPW = alert;
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reconnect", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *a){
+                                                        [_password release];
+                                                        _password = [[weakAlertPW.textFields[0] text] copy];
+                                                        [self establishConnection];
+                                                        [self showConnectingView];
+                                                    }]];
             break;
         case MKRejectReasonWrongServerPassword:
             msg = NSLocalizedString(@"Wrong server password", nil);
-            alert = [[UIAlertView alloc] initWithTitle:title
-                                               message:msg
-                                              delegate:self
-                                     cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                     otherButtonTitles:NSLocalizedString(@"Reconnect", nil), nil];
-            [alert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-            [[alert textFieldAtIndex:0] setText:_password];
+            alert = [UIAlertController alertControllerWithTitle:title
+                                                        message:msg
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *tf){ tf.secureTextEntry = YES; tf.text = _password; }];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:nil]];
+            __weak UIAlertController *weakAlertPW2 = alert;
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reconnect", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *a){
+                                                        [_password release];
+                                                        _password = [[weakAlertPW2.textFields[0] text] copy];
+                                                        [self establishConnection];
+                                                        [self showConnectingView];
+                                                    }]];
             break;
         case MKRejectReasonUsernameInUse:
             msg = NSLocalizedString(@"Username already in use", nil);
-            alert = [[UIAlertView alloc] initWithTitle:title
-                                               message:msg
-                                              delegate:self
-                                     cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                     otherButtonTitles:NSLocalizedString(@"Reconnect", nil), nil];
-            [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-            [[alert textFieldAtIndex:0] setText:_username];
+            alert = [UIAlertController alertControllerWithTitle:title
+                                                        message:msg
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *tf){ tf.text = _username; }];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:nil]];
+            __weak UIAlertController *weakAlert2 = alert;
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reconnect", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *a){
+                                                        [_username release];
+                                                        _username = [[weakAlert2.textFields[0] text] copy];
+                                                        [self establishConnection];
+                                                        [self showConnectingView];
+                                                    }]];
             break;
         case MKRejectReasonServerIsFull:
             msg = NSLocalizedString(@"Server is full", nil);
-            alert = [[UIAlertView alloc] initWithTitle:title
-                                               message:msg
-                                              delegate:nil
-                                     cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                     otherButtonTitles:nil];
+            alert = [UIAlertController alertControllerWithTitle:title
+                                                        message:msg
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:nil]];
             break;
         case MKRejectReasonNoCertificate:
             msg = NSLocalizedString(@"A certificate is needed to connect to this server", nil);
-            alert = [[UIAlertView alloc] initWithTitle:title
-                                               message:msg
-                                              delegate:nil
-                                     cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                     otherButtonTitles:nil];
+            alert = [UIAlertController alertControllerWithTitle:title
+                                                        message:msg
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:nil]];
             break;
     }
 
@@ -362,7 +426,7 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
     _rejectReason = reason;
 
     [alert show];
-    [alert release];
+    [_parentViewController presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - MKServerModelDelegate
@@ -374,11 +438,8 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
 
     [_serverRoot takeOwnershipOfConnectionDelegate];
 
-    [_username release];
     _username = nil;
-    [_hostname release];
     _hostname = nil;
-    [_password release];
     _password = nil;
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPad) {
@@ -390,7 +451,6 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
     }
 
     [_parentViewController presentModalViewController:_serverRoot animated:YES];
-    [_parentViewController release];
     _parentViewController = nil;
 }
 
@@ -411,11 +471,9 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
     // Actions for the rejection UIAlertView
     if (alertView == _rejectAlertView) {
         if (_rejectReason == MKRejectReasonInvalidUsername || _rejectReason == MKRejectReasonUsernameInUse) {
-            [_username release];
             UITextField *textField = [_rejectAlertView textFieldAtIndex:0];
             _username = [[textField text] copy];
         } else if (_rejectReason == MKRejectReasonWrongServerPassword || _rejectReason == MKRejectReasonWrongUserPassword) {
-            [_password release];
             UITextField *textField = [_rejectAlertView textFieldAtIndex:0];
             _password = [[textField text] copy];
         }
@@ -462,9 +520,7 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
         MUServerCertificateTrustViewController *certTrustView = [[MUServerCertificateTrustViewController alloc] initWithCertificates:[_connection peerCertificates]];
         [certTrustView setDelegate:self];
         UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:certTrustView];
-        [certTrustView release];
         [_parentViewController presentModalViewController:navCtrl animated:YES];
-        [navCtrl release];
     }
 }
 

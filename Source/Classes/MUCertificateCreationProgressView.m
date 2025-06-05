@@ -25,8 +25,6 @@
 
 - (id) initWithName:(NSString *)name email:(NSString *)email {
     if (self = [super initWithNibName:@"MUCertificateCreationProgressView" bundle:nil]) {
-        _identityName = [name retain];
-        _emailAddress = [email retain];
         
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
@@ -36,9 +34,6 @@
 }
 
 - (void) dealloc {
-    [_identityName release];
-    [_emailAddress release];
-    [super dealloc];
 }
 
 - (void) viewDidLoad {

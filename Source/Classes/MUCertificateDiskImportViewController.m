@@ -14,7 +14,6 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
-        [alert release];
     });
 }
 
@@ -42,7 +41,7 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
     NSMutableArray *diskCerts = nil;
 
     if ([documentDirs count] > 0) {
-        diskCerts = [[[NSMutableArray alloc] init] autorelease];
+        diskCerts = [[[NSMutableArray alloc] init] ];
         for (NSString *fileName in dirContents) {
             if ([fileName hasSuffix:@".pkcs12"])
                 [diskCerts addObject:fileName];
@@ -59,16 +58,12 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
     if ((self = [super initWithStyle:style])) {
         if (style == UITableViewStyleGrouped)
             _showHelp = YES;
-        _diskCertificates = [diskCerts retain];
     }
 
     return self;
 }
 
 - (void) dealloc {
-    [_diskCertificates release];
-    [_attemptIndexPath release];
-    [super dealloc];
 }
 
 #pragma mark - View lifecycle
@@ -98,12 +93,10 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
 
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneClicked:)];
     [[self navigationItem] setLeftBarButtonItem:doneButton];
-    [doneButton release];
 
     if (!_showHelp) {
         UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionClicked:)];
         [[self navigationItem] setRightBarButtonItem:actionButton];
-        [actionButton release];
     }
 }
 
@@ -121,7 +114,7 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
     static NSString *CellIdentifier = @"DiskCertificateCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ];
     }
 
     [[cell imageView] setImage:[UIImage imageNamed:@"certificatecell"]];
@@ -139,8 +132,6 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
 #pragma mark - Table view delegate
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [_attemptIndexPath release];
-    _attemptIndexPath = [indexPath retain];
 
     [self tryImportCertificateWithPassword:nil];
 }
@@ -288,7 +279,6 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
     [dialog addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [dialog setAlertViewStyle:UIAlertViewStyleSecureTextInput];
     [dialog show];
-    [dialog release];
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -328,13 +318,11 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
                                                       cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                       otherButtonTitles:nil];
             [alertView show];
-            [alertView release];
         } else {
             [_diskCertificates removeObjectIdenticalTo:fn];
         }
     }
     [self.tableView reloadData];
-    [diskCerts release];
 }
 
 #pragma mark - Actions
@@ -355,7 +343,6 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
                                               cancelButtonTitle:NSLocalizedString(@"No", nil)
                                               otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
     [alertView show];
-    [alertView release];
 }
 
 - (void) actionClicked:(id)sender {
@@ -368,7 +355,6 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
                                                     otherButtonTitles:nil];
     [actionSheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
     [actionSheet showFromBarButtonItem:sender animated:YES];
-    [actionSheet release];
 }
 
 - (void) actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {

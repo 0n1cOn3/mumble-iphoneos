@@ -53,8 +53,6 @@
 
 - (id) initWithConnection:(MKConnection *)conn andServerModel:(MKServerModel *)model {
     if ((self = [super init])) {
-        _connection = [conn retain];
-        _model = [model retain];
         [_model addDelegate:self];
         
         _unreadMessages = 0;
@@ -71,20 +69,11 @@
 }
 
 - (void) dealloc {
-    [_serverView release];
-    [_messagesView release];
    
     [_model removeDelegate:self];
-    [_model release];
     [_connection setDelegate:nil];
-    [_connection release];
     
-    [_menuButton release];
-    [_segmentedControl release];
-    [_smallIcon release];
-    [_numberBadgeView release];
 
-    [super dealloc];
 }
 
 - (void) takeOwnershipOfConnectionDelegate {
@@ -113,7 +102,7 @@
     _menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MumbleMenuButton"] style:UIBarButtonItemStyleBordered target:self action:@selector(actionButtonClicked:)];
     _serverView.navigationItem.rightBarButtonItem = _menuButton;
     
-    UIButton *button = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    UIButton *button = [[UIButton buttonWithType:UIButtonTypeCustom]];
     [button setFrame:CGRectMake(0, 0, 35, 30)];
     [button setBackgroundImage:[UIImage imageNamed:@"SmallMumbleIcon"] forState:UIControlStateNormal];
     [button setAdjustsImageWhenDisabled:NO];
@@ -148,14 +137,17 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
-
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // On iPad, we support all interface orientations.
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return YES;
+        return UIInterfaceOrientationMaskAll;
     }
+    return UIInterfaceOrientationMaskPortrait;
+}
 
-    return interfaceOrientation == UIInterfaceOrientationPortrait;
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
 }
 
 - (void) segmentChanged:(id)sender {
@@ -209,7 +201,6 @@
                                                   cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                   otherButtonTitles:nil];
         [alertView show];
-        [alertView release];
 
         [[MUConnectionController sharedController] disconnectFromServer];
     }
@@ -230,7 +221,6 @@
                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                   otherButtonTitles:nil];
         [alertView show];
-        [alertView release];
         
         [[MUConnectionController sharedController] disconnectFromServer];
     }
@@ -249,7 +239,6 @@
                                                   cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                   otherButtonTitles:nil];
         [alertView show];
-        [alertView release];
         
         [[MUConnectionController sharedController] disconnectFromServer];
     }
@@ -372,7 +361,6 @@
 
     [actionSheet setDelegate:self];
     [actionSheet showFromBarButtonItem:_menuButton animated:YES];
-    [actionSheet release];
 }
 
 - (void) childDoneButton:(id)sender {
@@ -405,23 +393,16 @@
         MUAudioMixerDebugViewController *audioMixerDebugViewController = [[MUAudioMixerDebugViewController alloc] init];
         UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:audioMixerDebugViewController];
         [self presentModalViewController:navCtrl animated:YES];
-        [audioMixerDebugViewController release];
-        [navCtrl release];
     } else if (buttonIndex == _accessTokensIndex) {
         MUAccessTokenViewController *tokenViewController = [[MUAccessTokenViewController alloc] initWithServerModel:_model];
         UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:tokenViewController];
         [self presentModalViewController:navCtrl animated:YES];
-        [tokenViewController release];
-        [navCtrl release];
     } else if (buttonIndex == _certificatesIndex) { // Certificates
         MUCertificateViewController *certView = [[MUCertificateViewController alloc] initWithCertificates:[_model serverCertificates]];
         UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:certView];
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(childDoneButton:)];
         certView.navigationItem.leftBarButtonItem = doneButton;
-        [doneButton release];
         [self presentModalViewController:navCtrl animated:YES];
-        [certView release];
-        [navCtrl release];
     } else if (buttonIndex == _selfRegisterIndex) { // Self-Register
         NSString *title = NSLocalizedString(@"User Registration", nil);
         NSString *msg = [NSString stringWithFormat:
@@ -437,7 +418,6 @@
                                                   cancelButtonTitle:NSLocalizedString(@"No", nil)
                                                   otherButtonTitles:NSLocalizedString(@"Yes", nil), nil];
         [alertView show];
-        [alertView release];
     } else if (buttonIndex == _clearMessagesIndex) { // Clear Messages
         [_messagesView clearAllMessages];
     } else if (buttonIndex == _selfMuteIndex) { // Self-Mute, Unmute Self

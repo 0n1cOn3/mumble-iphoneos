@@ -40,17 +40,14 @@
                              nil];
                     if (SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&pkeyData) == noErr) {
                         cert = [MKCertificate certificateWithCertificate:secData privateKey:pkeyData];
-                        [pkeyData release];
                     }
                     CFRelease(secKey);
                 }
-                [secData release];
             }
         } else if (receivedType == SecCertificateGetTypeID()) {
             SecCertificateRef secCert = (SecCertificateRef) thing;
             NSData *secData = (NSData *)SecCertificateCopyData(secCert);
             cert = [MKCertificate certificateWithCertificate:secData privateKey:nil];
-            [secData release];
         } else {
             return nil;
         }
@@ -103,11 +100,10 @@
     NSArray *array = nil;
     OSStatus err = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&array);
     if (err != noErr) {
-        [array release];
         return nil;
     }
 
-    return [array autorelease];
+    return [array ];
 }
 
 @end

@@ -43,11 +43,18 @@
     self.tableView.scrollEnabled = NO;
 }
 
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
-#pragma mark - Table view data source
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -61,7 +68,7 @@
     static NSString *CellIdentifier = @"MUAudioSidetonePreferencesCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] ];
     }
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -78,7 +85,6 @@
             [sidetoneSwitch addTarget:self action:@selector(sidetoneStatusChanged:) forControlEvents:UIControlEventValueChanged];
             [sidetoneSwitch setOn:[defaults boolForKey:@"AudioSidetone"]];
             cell.accessoryView = sidetoneSwitch;
-            [sidetoneSwitch release];
         } else if ([indexPath row] == 1) {
             NSLog(@"reloadin' (enabled? %u)", [defaults boolForKey:@"AudioSidetone"]);
             cell.textLabel.text = NSLocalizedString(@"Playback Volume", nil);
@@ -90,7 +96,6 @@
             [sidetoneSlider setValue:[defaults floatForKey:@"AudioSidetoneVolume"]];
             [sidetoneSlider setMinimumTrackTintColor:[UIColor blackColor]];
             cell.accessoryView = sidetoneSlider;
-            [sidetoneSlider release];
         }
     }
     
@@ -110,8 +115,6 @@
     }
     return 0.0f;
 }
-
-#pragma mark - Actions
 
 - (void) sidetoneStatusChanged:(UISwitch *)sidetoneSwitch {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

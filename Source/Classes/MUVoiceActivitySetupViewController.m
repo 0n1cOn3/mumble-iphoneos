@@ -46,8 +46,17 @@
     self.tableView.scrollEnabled = NO;
 }
 
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
 }
 
 #pragma mark - Table view data source
@@ -76,7 +85,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ];
     }
     
     NSString *current = [[NSUserDefaults standardUserDefaults] stringForKey:@"AudioVADKind"];
@@ -93,19 +102,19 @@
         if (indexPath.row == 0) {
             cell.textLabel.text = NSLocalizedString(@"Amplitude", @"Amplitude voice-activity mode");
             if ([current isEqualToString:@"amplitude"]) {
-                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] autorelease];
+                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] ];
                 cell.textLabel.textColor = [MUColor selectedTextColor];
             }
         } else if (indexPath.row == 1) {
             cell.textLabel.text = NSLocalizedString(@"Signal to Noise", @"SNR voice-activity mode");
             if ([current isEqualToString:@"snr"]) {
-                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] autorelease];
+                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] ];
                 cell.textLabel.textColor = [MUColor selectedTextColor];
             }
         }
     } else if (section == 1) {
         if (indexPath.row == 0) {
-            MUAudioBarViewCell *cell = [[[MUAudioBarViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AudioBarCell"] autorelease];
+            MUAudioBarViewCell *cell = [[[MUAudioBarViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AudioBarCell"] ];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -120,7 +129,6 @@
             [slider setMaximumTrackTintColor:[UIColor whiteColor]];
             [slider setMinimumTrackTintColor:[MUColor badPingColor]];
             cell.accessoryView = slider;
-            [slider release];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         } else if (indexPath.row == 1) {
             cell.textLabel.text = NSLocalizedString(@"Speech Above", @"Silence Above VAD configuration");
@@ -132,7 +140,6 @@
             [slider setMaximumTrackTintColor:[MUColor goodPingColor]];
             [slider setMinimumTrackTintColor:[UIColor whiteColor]];
             cell.accessoryView = slider;
-            [slider release];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         } else if (indexPath.row == 2) {
             cell.accessoryView = nil;
@@ -187,7 +194,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:@"snr" forKey:@"AudioVADKind"];
         }
         cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] autorelease];
+        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] ];
         cell.textLabel.textColor = [MUColor selectedTextColor];
     }
     
@@ -207,7 +214,6 @@
                                                   cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                   otherButtonTitles:nil];
         [alertView show];
-        [alertView release];
     }
 }
 

@@ -45,9 +45,6 @@ static NSInteger NetServiceAlphabeticalSort(id arg1, id arg2, void *reverse) {
 }
 
 - (void) dealloc {
-    [_browser release];
-    [_netServices release];
-    [super dealloc];
 }
 
 #pragma mark -
@@ -122,7 +119,7 @@ static NSInteger NetServiceAlphabeticalSort(id arg1, id arg2, void *reverse) {
     NSNetService *netService = [_netServices objectAtIndex:[indexPath row]];
     MUServerCell *cell = (MUServerCell *)[tableView dequeueReusableCellWithIdentifier:[MUServerCell reuseIdentifier]];
     if (cell == nil) {
-        cell = [[[MUServerCell alloc] init] autorelease];
+        cell = [[[MUServerCell alloc] init] ];
     }
     [cell populateFromDisplayName:[netService name] hostName:[netService hostName] port:[NSString stringWithFormat:@"%li", (long)[netService port]]];
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -148,7 +145,6 @@ static NSInteger NetServiceAlphabeticalSort(id arg1, id arg2, void *reverse) {
                                                                 NSLocalizedString(@"Connect", nil), nil];
     [sheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
     [sheet showInView:[self tableView]];
-    [sheet release];
 }
 
 - (void) actionSheet:(UIActionSheet *)sheet clickedButtonAtIndex:(NSInteger)index {
@@ -167,7 +163,6 @@ static NSInteger NetServiceAlphabeticalSort(id arg1, id arg2, void *reverse) {
         [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
         [[alert textFieldAtIndex:0] setText:[MUDatabase usernameForServerWithHostname:[netService hostName] port:[netService port]]];
         [alert show];
-        [alert release];
 
     // Add as favourite
     } else if (index == 0) {
@@ -191,25 +186,20 @@ static NSInteger NetServiceAlphabeticalSort(id arg1, id arg2, void *reverse) {
     [editView setTarget:self];
     [editView setDoneAction:@selector(doneButtonClicked:)];
     [modalNav pushViewController:editView animated:NO];
-    [editView release];
     
     [[self navigationController] presentModalViewController:modalNav animated:YES];
     
-    [modalNav release];
-    [favServ release];
 }
 
 - (void) doneButtonClicked:(id)sender {
     MUFavouriteServerEditViewController *editView = (MUFavouriteServerEditViewController *)sender;
     MUFavouriteServer *favServ = [editView copyFavouriteFromContent];
     [MUDatabase storeFavourite:favServ];
-    [favServ release];
     
     MUFavouriteServerListController *favController = [[MUFavouriteServerListController alloc] init];
     UINavigationController *navCtrl = [self navigationController];
     [navCtrl popToRootViewControllerAnimated:NO];
     [navCtrl pushViewController:favController animated:YES];
-    [favController release];
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -218,7 +208,7 @@ static NSInteger NetServiceAlphabeticalSort(id arg1, id arg2, void *reverse) {
 
     if (buttonIndex == 1) {
         MUConnectionController *connCtrlr = [MUConnectionController sharedController];
-        [connCtrlr connetToHostname:[netService hostName]
+        [connCtrlr connectToHostname:[netService hostName]
                                port:[netService port]
                        withUsername:[[alertView textFieldAtIndex:0] text]
                         andPassword:nil
