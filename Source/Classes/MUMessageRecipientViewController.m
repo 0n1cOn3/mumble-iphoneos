@@ -24,7 +24,6 @@
 
 - (id) initWithServerModel:(MKServerModel *)model {
     if ((self = [super initWithStyle:UITableViewStylePlain])) {
-        _serverModel = [model retain];
         [_serverModel addDelegate:self];
     }
     return self;
@@ -32,7 +31,6 @@
 
 - (void) dealloc {
     [_serverModel removeDelegate:self];
-    [super dealloc];
 }
 
 - (id<MUMessageRecipientViewControllerDelegate>) delegate {
@@ -44,13 +42,10 @@
 }
 
 - (void) rebuildModelArrayFromChannel:(MKChannel *)channel {
-    [_modelItems release];
     _modelItems = [[NSMutableArray alloc] init];
     
-    [_userIndexMap release];
     _userIndexMap = [[NSMutableDictionary alloc] init];
     
-    [_channelIndexMap release];
     _channelIndexMap = [[NSMutableDictionary alloc] init];
     
     [self addChannelTreeToModel:channel indentLevel:0];
@@ -113,7 +108,7 @@
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
 
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelClicked:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelClicked:)] ];
     
     [self rebuildModelArrayFromChannel:[_serverModel rootChannel]];
     [self.tableView reloadData];
@@ -130,12 +125,16 @@
 - (void) viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 }
-
 - (UIInterfaceOrientationMask) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
@@ -167,9 +166,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         if (MUGetOperatingSystemVersion() >= MUMBLE_OS_IOS_7) {
-            cell = [[[MUServerTableViewCell alloc] initWithReuseIdentifier:CellIdentifier] autorelease];
+            cell = [[[MUServerTableViewCell alloc] initWithReuseIdentifier:CellIdentifier] ];
         } else {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ];
         }
     }
 

@@ -29,19 +29,14 @@
     if (self == nil)
         return nil;
     
-    _countryServers = [servers retain];
     _visibleServers = [servers mutableCopy];
-    _countryName = [[country copy] retain];
+    _countryName = [[country copy]];
     
     return self;
 }
 
 - (void) dealloc {
-    [_countryName release];
-    [_countryServers release];
-    [_visibleServers release];
     
-    [super dealloc];
 }
 
 - (UITableView *) tableView {
@@ -54,7 +49,6 @@
     [_tableView setDelegate:self];
     [_tableView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
     [self.view addSubview:_tableView];
-    [_tableView release];
     
     [self resetSearch];
 }
@@ -81,7 +75,6 @@
 
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchButtonClicked:)];
     self.navigationItem.rightBarButtonItem = searchButton;
-    [searchButton release];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -92,12 +85,16 @@
 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 - (UIInterfaceOrientationMask) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
@@ -122,7 +119,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MUServerCell *cell = (MUServerCell *) [tableView dequeueReusableCellWithIdentifier:[MUServerCell reuseIdentifier]];
     if (cell == nil) {
-        cell = [[[MUServerCell alloc] init] autorelease];
+        cell = [[[MUServerCell alloc] init] ];
     }
     
     NSDictionary *serverItem = [_visibleServers objectAtIndex:[indexPath row]];
@@ -148,7 +145,6 @@
                                                                 NSLocalizedString(@"Connect", nil), nil];
     [sheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
     [sheet showInView:[self tableView]];
-    [sheet release];
 }
 
 - (void) actionSheet:(UIActionSheet *)sheet clickedButtonAtIndex:(NSInteger)index {
@@ -167,7 +163,6 @@
         [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
         [[alert textFieldAtIndex:0] setText:[MUDatabase usernameForServerWithHostname:[serverItem objectForKey:@"ip"] port:[[serverItem objectForKey:@"port"] intValue]]];
         [alert show];
-        [alert release];
 
     // Add as favourite
     } else if (index == 0) {
@@ -191,25 +186,20 @@
     [editView setTarget:self];
     [editView setDoneAction:@selector(doneButtonClicked:)];
     [modalNav pushViewController:editView animated:NO];
-    [editView release];
 
     [[self navigationController] presentModalViewController:modalNav animated:YES];
 
-    [modalNav release];
-    [favServ release];
 }
 
 - (void) doneButtonClicked:(id)sender {
     MUFavouriteServerEditViewController *editView = (MUFavouriteServerEditViewController *)sender;
     MUFavouriteServer *favServ = [editView copyFavouriteFromContent];
     [MUDatabase storeFavourite:favServ];
-    [favServ release];
 
     MUFavouriteServerListController *favController = [[MUFavouriteServerListController alloc] init];
     UINavigationController *navCtrl = [self navigationController];
     [navCtrl popToRootViewControllerAnimated:NO];
     [navCtrl pushViewController:favController animated:YES];
-    [favController release];
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -218,7 +208,7 @@
     
     if (buttonIndex == 1) {
         MUConnectionController *connCtrlr = [MUConnectionController sharedController];
-        [connCtrlr connetToHostname:[serverItem objectForKey:@"ip"]
+        [connCtrlr connectToHostname:[serverItem objectForKey:@"ip"]
                                port:[[serverItem objectForKey:@"port"] intValue]
                        withUsername:[[alertView textFieldAtIndex:0] text]
                         andPassword:nil
@@ -232,8 +222,6 @@
 #pragma mark SearchBar methods
 
 - (void) resetSearch {
-    [_visibleServers release];
-    _visibleServers = [_countryServers retain];
 }
 
 - (void) performSearchForTerm:(NSString *)searchTerm {        
@@ -246,7 +234,6 @@
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_visibleServers release];
             _visibleServers = results;
             [self.tableView reloadData]; 
         });
@@ -325,14 +312,12 @@
     
     UIBarButtonItem *cancelSearchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelSearchButtonClicked:)];
     self.navigationItem.rightBarButtonItem = cancelSearchButton;
-    [cancelSearchButton release];
     
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     searchBar.delegate = self;
     searchBar.barStyle = UIBarStyleBlack;
     [searchBar sizeToFit];
     self.navigationItem.titleView = searchBar;
-    [searchBar release];
 
     [searchBar becomeFirstResponder];
 }
@@ -343,7 +328,6 @@
     
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchButtonClicked:)];
     self.navigationItem.rightBarButtonItem = searchButton;
-    [searchButton release];
     
     self.navigationItem.hidesBackButton = NO;
     self.navigationItem.titleView = nil;

@@ -67,6 +67,11 @@
 }
 
 - (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
@@ -93,7 +98,7 @@
     static NSString *CellIdentifier = @"MUAdvancedAudioPreferencesCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] ];
     }
     
     cell.detailTextLabel.text = nil;
@@ -119,7 +124,7 @@
         if ([indexPath row] == 0) {
             cell.textLabel.text = NSLocalizedString(@"Preprocessing", nil);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            UISwitch *preprocSwitch = [[[UISwitch alloc] init] autorelease];
+            UISwitch *preprocSwitch = [[[UISwitch alloc] init] ];
             preprocSwitch.onTintColor = [UIColor blackColor];
             preprocSwitch.on = [defaults boolForKey:@"AudioPreprocessor"];
             [preprocSwitch addTarget:self action:@selector(preprocessingChanged:) forControlEvents:UIControlEventValueChanged];
@@ -128,7 +133,7 @@
             if ([defaults boolForKey:@"AudioPreprocessor"]) {
                 cell.textLabel.text = NSLocalizedString(@"Echo Cancellation", nil);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                UISwitch *echoCancelSwitch = [[[UISwitch alloc] init] autorelease];
+                UISwitch *echoCancelSwitch = [[[UISwitch alloc] init] ];
                 echoCancelSwitch.onTintColor = [UIColor blackColor];
                 echoCancelSwitch.on = [defaults boolForKey:@"AudioEchoCancel"];
                 echoCancelSwitch.enabled = [[MKAudio sharedAudio] echoCancellationAvailable];
@@ -140,7 +145,7 @@
             } else {
                 cell.textLabel.text = NSLocalizedString(@"Mic Boost", nil);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                UISlider *slider = [[[UISlider alloc] init] autorelease];
+                UISlider *slider = [[[UISlider alloc] init] ];
                 [slider setMaximumValue:2.0f];
                 [slider setMinimumValue:0.0f];
                 float boost = [defaults floatForKey:@"AudioMicBoost"];
@@ -168,7 +173,7 @@
         } else if ([indexPath row] == 1) {
             cell.textLabel.text = NSLocalizedString(@"Speakerphone Mode", nil);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            UISwitch *speakerPhoneSwitch = [[[UISwitch alloc] init] autorelease];
+            UISwitch *speakerPhoneSwitch = [[[UISwitch alloc] init] ];
             speakerPhoneSwitch.onTintColor = [UIColor blackColor];
             speakerPhoneSwitch.on = [defaults boolForKey:@"AudioSpeakerPhoneMode"];
             speakerPhoneSwitch.enabled = YES;
@@ -179,7 +184,7 @@
         if ([indexPath row] == 0) {
             cell.textLabel.text = NSLocalizedString(@"Force CELT Mode", nil);
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            UISwitch *celtSwitch = [[[UISwitch alloc] init] autorelease];
+            UISwitch *celtSwitch = [[[UISwitch alloc] init] ];
             celtSwitch.onTintColor = [UIColor blackColor];
             celtSwitch.on = [defaults boolForKey:@"AudioOpusCodecForceCELTMode"];
             celtSwitch.enabled = YES;
@@ -251,11 +256,9 @@
     if ([indexPath section] == 0 && [indexPath row] == 0) {
         MUAudioQualityPreferencesViewController *audioQual = [[MUAudioQualityPreferencesViewController alloc] init];
         [self.navigationController pushViewController:audioQual animated:YES];
-        [audioQual release];
     } else if ([indexPath section] == 2 && [indexPath row] == 0) {
         MUAudioSidetonePreferencesViewController *sidetonePrefs = [[MUAudioSidetonePreferencesViewController alloc] init];
         [self.navigationController pushViewController:sidetonePrefs animated:YES];
-        [sidetonePrefs release];
     }
 }
 

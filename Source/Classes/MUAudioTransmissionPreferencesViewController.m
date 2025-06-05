@@ -75,10 +75,13 @@
 }
 
 - (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
-    return UIInterfaceOrientationPortrait;
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
 }
 
-#pragma mark - Table view data source
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -100,7 +103,7 @@
     static NSString *CellIdentifier = @"AudioXmitOptionCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ];
     }
     
     NSString *current = [[NSUserDefaults standardUserDefaults] stringForKey:@"AudioTransmitMethod"];
@@ -112,19 +115,19 @@
         if (indexPath.row == 0) {
             cell.textLabel.text = NSLocalizedString(@"Voice Activated", nil);
             if ([current isEqualToString:@"vad"]) {
-                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] autorelease];
+                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] ];
                 cell.textLabel.textColor = [MUColor selectedTextColor];
             }
         } else if (indexPath.row == 1) {
             cell.textLabel.text = NSLocalizedString(@"Push-to-talk", nil);
             if ([current isEqualToString:@"ptt"]) {
-                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] autorelease];
+                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] ];
                 cell.textLabel.textColor = [MUColor selectedTextColor];
             }
         } else if (indexPath.row == 2) {
             cell.textLabel.text = NSLocalizedString(@"Continuous", nil);
             if ([current isEqualToString:@"continuous"]) {
-                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] autorelease];
+                cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] ];
                 cell.textLabel.textColor = [MUColor selectedTextColor];
             }
         }
@@ -133,9 +136,9 @@
             if ([current isEqualToString:@"ptt"]) {
                 UITableViewCell *pttCell = [tableView dequeueReusableCellWithIdentifier:@"AudioXmitPTTCell"];
                 if (pttCell == nil) {
-                    pttCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AudioXmitPTTCell"] autorelease];
+                    pttCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AudioXmitPTTCell"] ];
                 }
-                UIImageView *mouthView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"talkbutton_off"]] autorelease];
+                UIImageView *mouthView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"talkbutton_off"]] ];
                 [mouthView setContentMode:UIViewContentModeCenter];
                 [mouthView setOpaque:NO];
                 [pttCell setBackgroundView:mouthView];
@@ -162,7 +165,7 @@
     if (section == 0) {
         return [MUTableViewHeaderLabel labelWithText:NSLocalizedString(@"Transmission Method", nil)];
     } else if (section == 1) {
-        UIView *parentView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+        UIView *parentView = [[[UIView alloc] initWithFrame:CGRectZero] ];
         MUTableViewHeaderLabel *lbl = [MUTableViewHeaderLabel labelWithText:nil];
         lbl.font = [UIFont systemFontOfSize:16.0f];
         lbl.lineBreakMode = UILineBreakModeWordWrap;
@@ -250,14 +253,13 @@
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
         
         cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] autorelease];
+        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GrayCheckmark"]] ];
         cell.textLabel.textColor = [MUColor selectedTextColor];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             if ([current isEqualToString:@"vad"]) {
                 MUVoiceActivitySetupViewController *vadSetup = [[MUVoiceActivitySetupViewController alloc] init];
                 [self.navigationController pushViewController:vadSetup animated:YES];
-                [vadSetup release];
             }
         }	
     }

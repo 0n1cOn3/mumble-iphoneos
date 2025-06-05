@@ -44,11 +44,6 @@
 }
 
 - (void) dealloc {
-    [_displayName release];
-    [_hostName release];
-    [_userName release];
-    [_password release];
-    [super dealloc];
 }
 
 - (id) copyWithZone:(NSZone *)zone {
