@@ -48,12 +48,10 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
             SecCertificateRef secCert = (SecCertificateRef) [chains objectAtIndex:i];
             NSData *certData = (NSData *) SecCertificateCopyData(secCert);
             [certificates addObject:[MKCertificate certificateWithCertificate:certData privateKey:nil]];
-            [certData release];
         }
         _certificates = certificates;
         _allowExportAndDelete = YES;
         _curIdx = 0;
-        _persistentRef = [persistentRef retain];
         
     }
     return self;
@@ -78,12 +76,6 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
 }
 
 - (void) dealloc {
-    [_subjectItems release];
-    [_issuerItems release];
-    [_certTitle release];
-    [_arrows release];
-    [_persistentRef release];
-    [super dealloc];
 }
 
 - (void) viewDidLoad {
@@ -123,19 +115,19 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
     
     UIBarButtonItem *actions = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionClicked:)];
     [actions setStyle:UIBarButtonItemStyleBordered];
-    [actions autorelease];
+    [actions ];
 
     // If there's more than one certificate in the chain, show the arrows
     if ([_certificates count] > 1) {
-        UIBarButtonItem *segmentedContainer = [[[UIBarButtonItem alloc] initWithCustomView:_arrows] autorelease];
+        UIBarButtonItem *segmentedContainer = [[[UIBarButtonItem alloc] initWithCustomView:_arrows] ];
         if (_allowExportAndDelete) {
-            UIToolbar *toolbar = [[[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 125, 45)] autorelease];
+            UIToolbar *toolbar = [[[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 125, 45)] ];
             [toolbar setBarStyle:UIBarStyleBlackOpaque];
-            [toolbar setBackgroundImage:[[[UIImage alloc] init] autorelease] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+            [toolbar setBackgroundImage:[[[UIImage alloc] init] ] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
             [toolbar setBackgroundColor:[UIColor clearColor]];
             [toolbar setItems:[NSArray arrayWithObjects:actions, segmentedContainer, nil]];
     
-            UIBarButtonItem *toolbarContainer = [[[UIBarButtonItem alloc] initWithCustomView:toolbar] autorelease];        
+            UIBarButtonItem *toolbarContainer = [[[UIBarButtonItem alloc] initWithCustomView:toolbar] ];        
             self.navigationItem.rightBarButtonItem = toolbarContainer;
         } else {
             self.navigationItem.rightBarButtonItem = segmentedContainer;
@@ -170,7 +162,7 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
         [subject addObject:[NSArray arrayWithObjects:org, str, nil]];
     }
 
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] ];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSDate *date = nil;
 
@@ -211,10 +203,8 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
     if (str)
         [issuer addObject:[NSArray arrayWithObjects:org, str, nil]];
 
-    [_subjectItems release];
     _subjectItems = subject;
 
-    [_issuerItems release];
     _issuerItems = issuer;
 
     [self.tableView reloadData];
@@ -275,7 +265,7 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
     static NSString *CellIdentifier = @"CertificateViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] ];
     }
 
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -403,7 +393,6 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
                                                       cancelButtonTitle:cancelButtonText
                                                       otherButtonTitles:nil];
             [alertView show];
-            [alertView release];
             return;
         }
 
@@ -422,7 +411,6 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
                                                       cancelButtonTitle:cancelButtonText
                                                       otherButtonTitles:nil];
             [alertView show];
-            [alertView release];
             return;
         }
     }
@@ -461,7 +449,6 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
                                               otherButtonTitles:export, nil];
     [sheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
     [sheet showInView:self.view];
-    [sheet release];
 }
 
 - (void) actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -480,7 +467,6 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
         [[alertView textFieldAtIndex:0] setPlaceholder:filename];
         [[alertView textFieldAtIndex:1] setPlaceholder:password];
         [alertView show];
-        [alertView release];
     } else if (buttonIndex == [actionSheet destructiveButtonIndex]) { // Delete
         NSString *title = NSLocalizedString(@"Delete Certificate Chain", @"Certificate deletion warning title");
         NSString *msg = NSLocalizedString(@"Are you sure you want to delete this certificate chain?\n\n"
@@ -492,7 +478,6 @@ static const NSUInteger CertificateViewSectionTotal              = 4;
                                                             message:msg
                                                            delegate:self cancelButtonTitle:cancel otherButtonTitles:delete, nil];
         [alertView show];
-        [alertView release];
     }
 }
 

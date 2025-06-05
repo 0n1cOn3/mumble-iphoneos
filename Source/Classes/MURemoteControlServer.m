@@ -96,7 +96,6 @@ static void acceptCallBack(CFSocketRef socket, CFSocketCallBackType type, CFData
 }
 
 - (BOOL) start {
-    [_activeSocks release];
     _activeSocks = [[NSMutableArray alloc] init];
     
     CFSocketContext ctx = {0, self, NULL, NULL, NULL};

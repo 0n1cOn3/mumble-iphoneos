@@ -34,19 +34,17 @@ static NSArray *FindValidParentsForCert(SecCertificateRef cert) {
     if (err != noErr) {
         return nil;
     }
-    [allAttrs autorelease];
+    [allAttrs ];
 
-    NSMutableArray *validParents = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *validParents = [[[NSMutableArray alloc] init] ];
     for (NSDictionary *parentAttr in allAttrs) {
         SecCertificateRef parentCertRef = (SecCertificateRef) [parentAttr objectForKey:(id)kSecValueRef];
 
         NSData *parentData = (NSData *) SecCertificateCopyData(parentCertRef);
         MKCertificate *parent = [MKCertificate certificateWithCertificate:parentData privateKey:nil];
-        [parentData release];
         
         NSData *childData = (NSData *) SecCertificateCopyData(cert);
         MKCertificate *child = [MKCertificate certificateWithCertificate:childData privateKey:nil];
-        [childData release];
     
         if ([parent isValidOnDate:[NSDate date]] && [child isSignedBy:parent]) {
             [validParents addObject:(id)parentCertRef];
@@ -76,7 +74,7 @@ static NSDictionary *GetAttrsForCert(SecCertificateRef cert) {
     if (err != noErr) {
         return nil;
     }
-    return [attrs autorelease];
+    return [attrs ];
 }
 
 // Checks whether the `cert' certificate is self-signed and valid.
@@ -87,7 +85,6 @@ static BOOL CertIsSelfSignedAndValid(SecCertificateRef cert) {
     if ([subject isEqualToData:issuer]) {
         NSData *data = (NSData *) SecCertificateCopyData(cert);
         MKCertificate *selfSigned = [MKCertificate certificateWithCertificate:data privateKey:nil];
-        [data release];
         if ([selfSigned isValidOnDate:[NSDate date]] && [selfSigned isSignedBy:selfSigned]) {
             return YES;
         }
@@ -144,7 +141,7 @@ static NSArray *BuildCertChainFromCertInternal(SecCertificateRef cert, BOOL *isF
             NSMutableArray *parents = [[NSMutableArray alloc] init];
             [parents addObject:(id)parent];
             [parents addObjectsFromArray:allParents];
-            return [parents autorelease];
+            return [parents ];
         }
     }
 
@@ -162,7 +159,7 @@ static NSArray *BuildCertChainFromCertInternal(SecCertificateRef cert, BOOL *isF
     CFTypeRef thing = NULL;
     OSStatus err;
 
-    NSMutableArray *chain = [[[NSMutableArray alloc] initWithCapacity:1] autorelease];
+    NSMutableArray *chain = [[[NSMutableArray alloc] initWithCapacity:1] ];
 
     NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
                            persistentRef,      kSecValuePersistentRef,

@@ -89,22 +89,21 @@ GTM_INLINE int lcm(int a, int b) {
 }
 
 + (id)stringEncodingWithString:(NSString *)string {
-  return [[[self alloc] initWithString:string] autorelease];
+  return [[self alloc] initWithString:string];
 }
 
 - (id)initWithString:(NSString *)string {
   if ((self = [super init])) {
-    charMapData_ = [[string dataUsingEncoding:NSASCIIStringEncoding] retain];
+    charMapData_ = [[string dataUsingEncoding:NSASCIIStringEncoding]]
     if (!charMapData_) {
       _GTMDevLog(@"Unable to convert string to ASCII");
-      [self release];
+
       return nil;
     }
     charMap_ = (char *)[charMapData_ bytes];
     NSUInteger length = [charMapData_ length];
     if (length < 2 || length > 128 || length & (length - 1)) {
       _GTMDevLog(@"Length not a power of 2 between 2 and 128");
-      [self release];
       return nil;
     }
 
@@ -112,8 +111,6 @@ GTM_INLINE int lcm(int a, int b) {
     for (unsigned int i = 0; i < length; i++) {
       if (reverseCharMap_[(int)charMap_[i]] != kUnknownChar) {
         _GTMDevLog(@"Duplicate character at pos %d", i);
-        [self release];
-        return nil;
       }
       reverseCharMap_[(int)charMap_[i]] = i;
     }
@@ -126,9 +123,6 @@ GTM_INLINE int lcm(int a, int b) {
   return self;
 }
 
-- (void)dealloc {
-  [charMapData_ release];
-  [super dealloc];
 }
 
 - (NSString *)description {
@@ -218,7 +212,7 @@ GTM_INLINE int lcm(int a, int b) {
   [outData setLength:outPos];
 
   return [[[NSString alloc] initWithData:outData
-                                encoding:NSASCIIStringEncoding] autorelease];
+                                encoding:NSASCIIStringEncoding]]
 }
 
 - (NSString *)encodeString:(NSString *)inString {
@@ -283,7 +277,7 @@ GTM_INLINE int lcm(int a, int b) {
 - (NSString *)stringByDecoding:(NSString *)inString {
   NSData *ret = [self decode:inString];
   return [[[NSString alloc] initWithData:ret
-                                encoding:NSUTF8StringEncoding] autorelease];
+                                encoding:NSUTF8StringEncoding]]
 }
 
 @end

@@ -64,21 +64,15 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
 }
 
 - (void) dealloc {
-    [super dealloc];
 
-    [_transitioningDelegate release];
 }
 
 - (void) connetToHostname:(NSString *)hostName port:(NSUInteger)port withUsername:(NSString *)userName andPassword:(NSString *)password withParentViewController:(UIViewController *)parentViewController {
-    _hostname = [hostName retain];
     _port = port;
-    _username = [userName retain];
-    _password = [password retain];
     
     [self showConnectingView];
     [self establishConnection];
     
-    _parentViewController = [parentViewController retain];
 }
 
 - (BOOL) isConnected {
@@ -107,7 +101,6 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
 
 - (void) hideConnectingView {
     [_alertView dismissWithClickedButtonIndex:1 animated:YES];
-    [_alertView release];
     _alertView = nil;
     [_timer invalidate];
     _timer = nil;
@@ -143,14 +136,11 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
 
 - (void) teardownConnection {
     [_serverModel removeDelegate:self];
-    [_serverModel release];
     _serverModel = nil;
     [_connection setDelegate:nil];
     [_connection disconnect];
-    [_connection release]; 
     _connection = nil;
     [_timer invalidate];
-    [_serverRoot release];
     _serverRoot = nil;
     
     // Reset app badge. The connection is no more.
@@ -190,7 +180,6 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
                                                   cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                   otherButtonTitles:nil];
         [alertView show];
-        [alertView release];
         [self teardownConnection];
     }
 }
@@ -221,7 +210,6 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
                                               cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                               otherButtonTitles:nil];
     [alertView show];
-    [alertView release];
     [self teardownConnection];
 }
 
@@ -252,7 +240,6 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
             [alert addButtonWithTitle:NSLocalizedString(@"Trust New Certificate", nil)];
             [alert addButtonWithTitle:NSLocalizedString(@"Show Certificates", nil)];
             [alert show];
-            [alert release];
         }
     } else {
         // No certhash of this certificate in the database for this hostname-port combo.  Let the user decide
@@ -269,7 +256,6 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
         [alert addButtonWithTitle:NSLocalizedString(@"Trust Certificate", nil)];
         [alert addButtonWithTitle:NSLocalizedString(@"Show Certificates", nil)];
         [alert show];
-        [alert release];
     }
 }
 
@@ -362,7 +348,6 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
     _rejectReason = reason;
 
     [alert show];
-    [alert release];
 }
 
 #pragma mark - MKServerModelDelegate
@@ -374,11 +359,8 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
 
     [_serverRoot takeOwnershipOfConnectionDelegate];
 
-    [_username release];
     _username = nil;
-    [_hostname release];
     _hostname = nil;
-    [_password release];
     _password = nil;
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPad) {
@@ -390,7 +372,6 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
     }
 
     [_parentViewController presentModalViewController:_serverRoot animated:YES];
-    [_parentViewController release];
     _parentViewController = nil;
 }
 
@@ -411,11 +392,9 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
     // Actions for the rejection UIAlertView
     if (alertView == _rejectAlertView) {
         if (_rejectReason == MKRejectReasonInvalidUsername || _rejectReason == MKRejectReasonUsernameInUse) {
-            [_username release];
             UITextField *textField = [_rejectAlertView textFieldAtIndex:0];
             _username = [[textField text] copy];
         } else if (_rejectReason == MKRejectReasonWrongServerPassword || _rejectReason == MKRejectReasonWrongUserPassword) {
-            [_password release];
             UITextField *textField = [_rejectAlertView textFieldAtIndex:0];
             _password = [[textField text] copy];
         }
@@ -462,9 +441,7 @@ NSString *MUConnectionClosedNotification = @"MUConnectionClosedNotification";
         MUServerCertificateTrustViewController *certTrustView = [[MUServerCertificateTrustViewController alloc] initWithCertificates:[_connection peerCertificates]];
         [certTrustView setDelegate:self];
         UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:certTrustView];
-        [certTrustView release];
         [_parentViewController presentModalViewController:navCtrl animated:YES];
-        [navCtrl release];
     }
 }
 

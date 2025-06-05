@@ -179,20 +179,8 @@
 }
 
 - (void) dealloc {
-    [_favourite release];
 
-    [_descriptionCell release];
-    [_descriptionField release];
-    [_addressCell release];
-    [_addressField release];
-    [_portCell release];
-    [_portField release];
-    [_usernameCell release];
-    [_usernameField release];
-    [_passwordCell release];
-    [_passwordField release];
 
-    [super dealloc];
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
@@ -247,7 +235,6 @@
                                                                     target:self
                                                                     action:@selector(cancelClicked:)];
     [[self navigationItem] setLeftBarButtonItem:cancelButton];
-    [cancelButton release];
 
     // Done
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
@@ -255,7 +242,6 @@
                                                                   target:self
                                                                   action:@selector(doneClicked:)];
     [[self navigationItem] setRightBarButtonItem:doneButton];
-    [doneButton release];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
