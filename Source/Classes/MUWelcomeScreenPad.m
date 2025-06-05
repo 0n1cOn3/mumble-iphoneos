@@ -68,7 +68,11 @@
 - (void) viewWillLayoutSubviews {
     [self setViewPositions];
 }
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
 
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }

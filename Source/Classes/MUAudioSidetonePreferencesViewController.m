@@ -43,6 +43,11 @@
     self.tableView.scrollEnabled = NO;
 }
 
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
@@ -50,8 +55,6 @@
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
-
-#pragma mark - Table view data source
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -112,8 +115,6 @@
     }
     return 0.0f;
 }
-
-#pragma mark - Actions
 
 - (void) sidetoneStatusChanged:(UISwitch *)sidetoneSwitch {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

@@ -76,7 +76,11 @@
     [self.navigationItem setLeftBarButtonItem:prefs];
 #endif
 }
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
 
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }

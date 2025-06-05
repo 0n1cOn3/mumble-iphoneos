@@ -137,7 +137,7 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
-
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations {
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         return UIInterfaceOrientationMaskAll;
@@ -145,6 +145,7 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }

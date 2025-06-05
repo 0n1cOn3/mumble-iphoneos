@@ -273,7 +273,11 @@ static UIView *MUMessagesViewControllerFindUIView(UIView *rootView, NSString *pr
 - (void) viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 }
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
 
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
