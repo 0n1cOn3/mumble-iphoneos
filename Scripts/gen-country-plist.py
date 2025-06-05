@@ -1,4 +1,4 @@
-#!/usr/bin/env/python2.6
+#!/usr/bin/env python2.6
 # -*- coding: utf-8 -*-
 #
 # Generate a country plist from the GeoLite GeoIP CSV file.
