@@ -200,7 +200,7 @@
     
     if (buttonIndex == 1) {
         MUConnectionController *connCtrlr = [MUConnectionController sharedController];
-        [connCtrlr connetToHostname:[serverItem objectForKey:@"ip"]
+        [connCtrlr connectToHostname:[serverItem objectForKey:@"ip"]
                                port:[[serverItem objectForKey:@"port"] intValue]
                        withUsername:[[alertView textFieldAtIndex:0] text]
                         andPassword:nil

@@ -6,7 +6,7 @@
 #import "MUOperatingSystem.h"
 #import "MUColor.h"
 
-@interface MUImageViewController () <UIScrollViewDelegate, UIActionSheetDelegate> {
+@interface MUImageViewController () <UIScrollViewDelegate> {
     NSArray        *_images;
     NSArray        *_imageViews;
     UIScrollView   *_scrollView;
@@ -115,13 +115,6 @@
     return nil;
 }
 
-#pragma mark - UIActionSheetDelegate
-
-- (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        UIImageWriteToSavedPhotosAlbum([_images objectAtIndex:_curPage], self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
-    }
-}
 
 #pragma mark - Actions
 
@@ -133,6 +126,13 @@
                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
                                                   otherButtonTitles:nil];
         [alertView show];
+        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to save image", nil)
+                                                                           message:[err description]
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+        [alertView addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:nil]];
+        [self presentViewController:alertView animated:YES completion:nil];
     }
 }
 
@@ -144,6 +144,24 @@
                                                     otherButtonTitles:NSLocalizedString(@"Export to Photos", nil), nil];
     [actionSheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
     [actionSheet showFromBarButtonItem:sender animated:YES];
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Export Image", nil)
+                                                                           message:nil
+                                                                    preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction *exportAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Export to Photos", nil)
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *action) {
+        UIImageWriteToSavedPhotosAlbum([_images objectAtIndex:_curPage], self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+
+    [actionSheet addAction:exportAction];
+    [actionSheet addAction:cancelAction];
+
+    actionSheet.popoverPresentationController.barButtonItem = sender;
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 @end

@@ -130,7 +130,7 @@
         NSNumber *port = [url port];
         NSString *username = [url user];
         NSString *password = [url password];
-        [connController connetToHostname:hostname port:port ? [port integerValue] : 64738 withUsername:username andPassword:password withParentViewController:welcomeScreen];
+        [connController connectToHostname:hostname port:port ? [port integerValue] : 64738 withUsername:username andPassword:password withParentViewController:welcomeScreen];
         return YES;
     }
     return NO;
@@ -146,7 +146,7 @@
         NSNumber *port = [url port];
         NSString *username = [url user];
         NSString *password = [url password];
-        [connController connetToHostname:hostname port:port ? [port integerValue] : 64738 withUsername:username andPassword:password withParentViewController:_navigationController.visibleViewController];
+        [connController connectToHostname:hostname port:port ? [port integerValue] : 64738 withUsername:username andPassword:password withParentViewController:_navigationController.visibleViewController];
         return YES;
     }
     return NO;

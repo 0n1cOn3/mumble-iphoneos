@@ -13,7 +13,7 @@
 
 #import <MumbleKit/MKCertificate.h>
 
-@interface MUCertificatePreferencesViewController () <UIActionSheetDelegate> {
+@interface MUCertificatePreferencesViewController () {
     NSMutableArray   *_certificateItems;
     BOOL             _picker;
     NSUInteger       _selectedIndex;
@@ -199,24 +199,55 @@
 
 #pragma mark -
 #pragma mark UIActionSheet delegate
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
 
-- (void) actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)idx {
-    if (idx == 0) { // Generate New Certificate
+    UIAlertAction *generate = [UIAlertAction actionWithTitle:NSLocalizedString(@"Generate New Certificate", nil)
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action) {
         UINavigationController *navCtrl = [[UINavigationController alloc] init];
         navCtrl.modalPresentationStyle = UIModalPresentationCurrentContext;
         MUCertificateCreationView *certGen = [[MUCertificateCreationView alloc] init];
         [navCtrl pushViewController:certGen animated:NO];
         [[self navigationController] presentModalViewController:navCtrl animated:YES];
     } else if (idx == 1) { // Show All Certificates; Show Identities Only
+        [navCtrl release];
+    }];
+
+    UIAlertAction *toggle = [UIAlertAction actionWithTitle:(_showAll ? showIdentities : showAllCerts)
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction *action) {
+
         _showAll = !_showAll;
         [[NSUserDefaults standardUserDefaults] setBool:_showAll forKey:@"CertificatesShowIntermediates"];
         [self fetchCertificates];
         [self.tableView reloadData];
-    } else if (idx == 2) { // Import From iTunes
+    }];
+
+    UIAlertAction *importItunes = [UIAlertAction actionWithTitle:NSLocalizedString(@"Import From iTunes", nil)
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *action) {
         MUCertificateDiskImportViewController *diskImportViewController = [[MUCertificateDiskImportViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:diskImportViewController];
         [[self navigationController] presentModalViewController:navController animated:YES];
     }
+        [diskImportViewController release];
+        [navController release];
+    }];
+
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:nil];
+
+    [sheet addAction:generate];
+    [sheet addAction:toggle];
+    [sheet addAction:importItunes];
+    [sheet addAction:cancel];
+
+    sheet.popoverPresentationController.barButtonItem = addButton;
+    [self presentViewController:sheet animated:YES completion:nil];
+
 }
 
 #pragma mark -

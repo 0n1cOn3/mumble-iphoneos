@@ -190,7 +190,7 @@
 
 - (void) alertView:(UIAlertView *)alert didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mumbleapp.com/"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.mumbleapp.com/"]];
     } else if (buttonIndex == 2) {
         MULegalViewController *legalView = [[MULegalViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] init];
