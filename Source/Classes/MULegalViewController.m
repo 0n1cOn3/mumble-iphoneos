@@ -8,12 +8,22 @@
 
 @interface MULegalViewController () <WKNavigationDelegate> {
     IBOutlet WKWebView *_webView;
-=======
     WKWebView *_webView;
 }
 @end
 
 @implementation MULegalViewController
+
+- (void)loadView {
+    [super loadView];
+    self.view = [[[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]] autorelease];
+    _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _webView.navigationDelegate = self;
+    _webView.backgroundColor = [UIColor clearColor];
+    _webView.opaque = NO;
+    [self.view addSubview:_webView];
+}
 
 - (id) init {
     if ((self = [super init])) {
@@ -81,11 +91,17 @@
     return UIInterfaceOrientationPortrait;
 }
 
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
 - (void) webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
 
     _webView.backgroundColor = [UIColor blackColor];
     _webView.opaque = YES;
+}
+
+- (void)dealloc {
+    [_webView release];
+    [super dealloc];
 }
 
 - (void) doneButtonClicked:(id)sender {

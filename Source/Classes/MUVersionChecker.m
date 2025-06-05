@@ -15,6 +15,9 @@
 =======
 @interface MUVersionChecker () {
     NSURLSessionDataTask *_task;
+    NSMutableData   *_buf;
+}
+- (void)newBuildAvailable;
 }
 - (void) newBuildAvailable;
 @end
@@ -26,7 +29,17 @@
     if (!self)
         return nil;
 
-# update-network-classes-to-use-nsurlsession
+    NSURL *url = [NSURL URLWithString:@"http://mumble-ios.appspot.com/latest.plist"];
+    _buf = [[NSMutableData alloc] init];
+    __block id blockSelf = [self retain];
+    _task = [[[NSURLSession sharedSession] dataTaskWithURL:url
+                                         completionHandler:^(NSData *data, NSURLResponse *resp, NSError *error) {
+        if (data && !error) {
+            [_buf appendData:data];
+            [blockSelf parseData];
+        }
+        [blockSelf release];
+    }] retain];
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mumble-ios.appspot.com/latest.plist"]];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     _session = [[NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil] retain];
@@ -48,16 +61,18 @@
 }
 
 - (void) dealloc {
+    [_task cancel];
+    [_task release];
     [_conn cancel];
     [_task cancel];
     [_task release];
-# update-network-classes-to-use-nsurlsession
     [_session invalidateAndCancel];
     [_session release];
     [_buf release];
     [super dealloc];
 }
 
+- (void)parseData {
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
     [_buf appendData:data];
 }
@@ -94,6 +109,21 @@
 - (void) newBuildAvailable {
     NSString *title = NSLocalizedString(@"New beta build available", nil);
     NSString *msg = NSLocalizedString(@"Do you want to upgrade?", nil);
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                   message:msg
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:nil];
+    UIAlertAction *upgrade = [UIAlertAction actionWithTitle:NSLocalizedString(@"Upgrade", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *action) {
+                                                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-services://?action=download-manifest&url=https://mumble-ios.appspot.com/wdist/manifest"]];
+                                                    }];
+    [alert addAction:cancel];
+    [alert addAction:upgrade];
+    UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [rootVC presentViewController:alert animated:YES completion:nil];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                      message:msg
                                                    delegate:self
@@ -102,10 +132,6 @@
     [alert show];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) { // Upgrade
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-services://?action=download-manifest&url=https://mumble-ios.appspot.com/wdist/manifest"]];
-    }
-}
+
 
 @end

@@ -40,7 +40,6 @@
 - (void) dealloc {
     [_task cancel];
     [_task release];
-    #update-network-classes-to-use-nsurlsession
     [_session invalidateAndCancel];
     [_session release];
     [_buf release];
@@ -48,6 +47,19 @@
 }
 
 - (void) attemptUpdate {
+    NSURL *url = [MKServices regionalServerListURL];
+    NSURLSession *session = [NSURLSession sharedSession];
+    __block id blockSelf = [self retain];
+    _task = [[session dataTaskWithURL:url
+                    completionHandler:^(NSData *data, NSURLResponse *resp, NSError *error) {
+        if (data && !error) {
+            [data writeToFile:[MUPublicServerList filePath] atomically:YES];
+        }
+        [blockSelf release];
+    }] retain];
+    [_task resume];
+}
+
     #update-network-classes-to-use-nsurlsession
     NSURLRequest *req = [NSURLRequest requestWithURL:[MKServices regionalServerListURL]];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];

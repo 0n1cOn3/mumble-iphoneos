@@ -12,6 +12,8 @@
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
+			<string>IBUIView</string>
+                       <string>IBWKWebView</string>
                        <string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -34,6 +36,7 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
+                                       <object class="IBWKWebView" id="827998242">
                                        <object class="IBUIView" id="827998242">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
@@ -139,12 +142,14 @@
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">_webView</string>
+                                           <string key="NS.object.0">WKWebView</string>
                                <string key="NS.object.0">WKWebView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<string key="NS.key.0">_webView</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
 							<string key="name">_webView</string>
+                                                   <string key="candidateClassName">WKWebView</string>
                                                        <string key="candidateClassName">WKWebView</string>
 						</object>
 					</object>
