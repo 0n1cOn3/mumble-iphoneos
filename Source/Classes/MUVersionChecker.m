@@ -4,6 +4,7 @@
 
 #import "MUVersionChecker.h"
 
+# update-network-classes-to-use-nsurlsession
 @interface MUVersionChecker () <NSURLSessionDataDelegate> {
     NSURLSession         *_session;
     NSURLSessionDataTask *_task;
@@ -11,6 +12,10 @@
 }
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data;
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
+=======
+@interface MUVersionChecker () {
+    NSURLSessionDataTask *_task;
+}
 - (void) newBuildAvailable;
 @end
 
@@ -21,11 +26,23 @@
     if (!self)
         return nil;
 
+# update-network-classes-to-use-nsurlsession
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mumble-ios.appspot.com/latest.plist"]];
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     _session = [[NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil] retain];
     _task = [[_session dataTaskWithRequest:req] retain];
     _buf = [[NSMutableData alloc] init];
+=======
+    NSURL *url = [NSURL URLWithString:@"https://mumble-ios.appspot.com/latest.plist"];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    __block typeof(self) bself = self;
+    _task = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error || !data) {
+            NSLog(@"MUversionChecker: failed to fetch latest version info.");
+            return;
+        }
+        [bself parseData:data];
+    }];
     [_task resume];
 
     return self;
@@ -34,6 +51,7 @@
 - (void) dealloc {
     [_task cancel];
     [_task release];
+# update-network-classes-to-use-nsurlsession
     [_session invalidateAndCancel];
     [_session release];
     [_buf release];
@@ -50,8 +68,13 @@
         return;
     }
 
+=======
+    [super dealloc];
+}
+
+- (void)parseData:(NSData *)data {
     NSPropertyListFormat fmt = NSPropertyListXMLFormat_v1_0;
-    NSDictionary *dict = [NSPropertyListSerialization propertyListWithData:_buf options:0 format:&fmt error:nil];
+    NSDictionary *dict = [NSPropertyListSerialization propertyListWithData:data options:0 format:&fmt error:nil];
     if (dict) {
         NSBundle *mainBundle = [NSBundle mainBundle];
         NSString *ourRev = [mainBundle objectForInfoDictionaryKey:@"MumbleGitRevision"];
