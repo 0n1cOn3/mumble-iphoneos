@@ -24,28 +24,28 @@
     NSString *plain = @"Hello there. Here's a link: http://www.google.com";
     NSString *expected = @"<p>Hello there. Here's a link: <a href=\"http://www.google.com\">http://www.google.com</a></p>";
     NSString *html = [MUTextMessageProcessor processedHTMLFromPlainTextMessage:plain];
-    STAssertEqualObjects(html, expected, nil);
+    XCTAssertEqualObjects(html, expected);
 }
 
 - (void) testSingleLinkWithTrailer {
     NSString *plain = @"Hello there. Here's a link: http://www.google.com, and a trailer!";
     NSString *expected = @"<p>Hello there. Here's a link: <a href=\"http://www.google.com\">http://www.google.com</a>, and a trailer!</p>";
     NSString *html = [MUTextMessageProcessor processedHTMLFromPlainTextMessage:plain];
-    STAssertEqualObjects(html, expected, nil);
+    XCTAssertEqualObjects(html, expected);
 }
 
 - (void) testMultiLink {
     NSString *plain = @"1st: http://www.a.com, 2nd: http://www.b.com";
     NSString *expected = @"<p>1st: <a href=\"http://www.a.com\">http://www.a.com</a>, 2nd: <a href=\"http://www.b.com\">http://www.b.com</a></p>";
     NSString *html = [MUTextMessageProcessor processedHTMLFromPlainTextMessage:plain];
-    STAssertEqualObjects(html, expected, nil);
+    XCTAssertEqualObjects(html, expected);
 }
 
 - (void) testPercentEncoding {
     NSString *plain = @"Hello there. Here's a link: http://www.example.com/%20a%20lot%20of%20spaces";
     NSString *expected = @"<p>Hello there. Here's a link: <a href=\"http://www.example.com/%20a%20lot%20of%20spaces\">http://www.example.com/%20a%20lot%20of%20spaces</a></p>";
     NSString *html = [MUTextMessageProcessor processedHTMLFromPlainTextMessage:plain];
-    STAssertEqualObjects(html, expected, nil);
+    XCTAssertEqualObjects(html, expected);
 }
 
 + (NSString *) plainStringFromLinks:(NSArray *)links {
@@ -89,7 +89,7 @@
     NSString *plain = [MUTextMessageProcessorTest plainStringFromLinks:links];
     NSString *expected = [MUTextMessageProcessorTest htmlStringFromLinks:links];
     NSString *html = [MUTextMessageProcessor processedHTMLFromPlainTextMessage:plain];
-    STAssertEqualObjects(html, expected, nil);
+    XCTAssertEqualObjects(html, expected);
 }
 
 - (void) testInvalidURLs {
@@ -101,7 +101,7 @@
         NSString *plain = [MUTextMessageProcessorTest plainStringFromLinks:links];
         NSString *expected = [MUTextMessageProcessorTest htmlStringFromLinks:links];
         NSString *html = [MUTextMessageProcessor processedHTMLFromPlainTextMessage:plain];
-        STAssertFalse([html isEqualToString:expected], @"got '%@', did not expect '%@'", html, expected);
+        XCTAssertFalse([html isEqualToString:expected], @"got '%@', did not expect '%@'", html, expected);
     }
 }
 
