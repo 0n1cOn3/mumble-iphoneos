@@ -4,7 +4,7 @@
 
 typedef NS_ENUM(NSInteger, MUOperatingSystemVersion) {
     MUMBLE_OS_UNKNOWN,
-    
+
     MUMBLE_OS_IOS_5,
     MUMBLE_OS_IOS_6,
     MUMBLE_OS_IOS_7,
