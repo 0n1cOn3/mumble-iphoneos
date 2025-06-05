@@ -5,13 +5,10 @@
 #import "MUVersionChecker.h"
 
 @interface MUVersionChecker () {
-    NSURLConnection *_conn;
+    NSURLSessionDataTask *_task;
     NSMutableData   *_buf;
 }
-- (void) connection:(NSURLConnection *)conn didReceiveData:(NSData *)data;
-- (void) connection:(NSURLConnection *)conn didFailWithError:(NSError *)error;
-- (void) connectionDidFinishLoading:(NSURLConnection *)conn;
-- (void) newBuildAvailable;
+- (void)newBuildAvailable;
 @end
 
 @implementation MUVersionChecker
@@ -21,29 +18,30 @@
     if (!self)
         return nil;
 
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mumble-ios.appspot.com/latest.plist"]];
-    _conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    NSURL *url = [NSURL URLWithString:@"http://mumble-ios.appspot.com/latest.plist"];
     _buf = [[NSMutableData alloc] init];
+    __block id blockSelf = [self retain];
+    _task = [[[NSURLSession sharedSession] dataTaskWithURL:url
+                                         completionHandler:^(NSData *data, NSURLResponse *resp, NSError *error) {
+        if (data && !error) {
+            [_buf appendData:data];
+            [blockSelf parseData];
+        }
+        [blockSelf release];
+    }] retain];
+    [_task resume];
 
     return self;
 }
 
 - (void) dealloc {
-    [_conn cancel];
-    [_conn release];
+    [_task cancel];
+    [_task release];
     [_buf release];
     [super dealloc];
 }
 
-- (void) connection:(NSURLConnection *)conn didReceiveData:(NSData *)data {
-    [_buf appendData:data];
-}
-
-- (void) connection:(NSURLConnection *)conn didFailWithError:(NSError *)error {
-    NSLog(@"MUversionChecker: failed to fetch latest version info.");
-}
-
-- (void) connectionDidFinishLoading:(NSURLConnection *)conn {
+- (void)parseData {
     NSPropertyListFormat fmt = NSPropertyListXMLFormat_v1_0;
     NSDictionary *dict = [NSPropertyListSerialization propertyListWithData:_buf options:0 format:&fmt error:nil];
     if (dict) {
@@ -66,19 +64,23 @@
 - (void) newBuildAvailable {
     NSString *title = NSLocalizedString(@"New beta build available", nil);
     NSString *msg = NSLocalizedString(@"Do you want to upgrade?", nil);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                     message:msg
-                                                   delegate:self
-                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                          otherButtonTitles:NSLocalizedString(@"Upgrade", nil), nil];
-    [alert show];
-    [alert release];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
+                                                                   message:msg
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:nil];
+    UIAlertAction *upgrade = [UIAlertAction actionWithTitle:NSLocalizedString(@"Upgrade", nil)
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *action) {
+                                                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-services://?action=download-manifest&url=https://mumble-ios.appspot.com/wdist/manifest"]];
+                                                    }];
+    [alert addAction:cancel];
+    [alert addAction:upgrade];
+    UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [rootVC presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) { // Upgrade
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-services://?action=download-manifest&url=https://mumble-ios.appspot.com/wdist/manifest"]];
-    }
-}
+
 
 @end
