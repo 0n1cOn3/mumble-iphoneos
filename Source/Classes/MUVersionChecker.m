@@ -4,6 +4,15 @@
 
 #import "MUVersionChecker.h"
 
+# update-network-classes-to-use-nsurlsession
+@interface MUVersionChecker () <NSURLSessionDataDelegate> {
+    NSURLSession         *_session;
+    NSURLSessionDataTask *_task;
+    NSMutableData        *_buf;
+}
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data;
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
+=======
 @interface MUVersionChecker () {
     NSURLSessionDataTask *_task;
 }
@@ -17,6 +26,13 @@
     if (!self)
         return nil;
 
+# update-network-classes-to-use-nsurlsession
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mumble-ios.appspot.com/latest.plist"]];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    _session = [[NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil] retain];
+    _task = [[_session dataTaskWithRequest:req] retain];
+    _buf = [[NSMutableData alloc] init];
+=======
     NSURL *url = [NSURL URLWithString:@"https://mumble-ios.appspot.com/latest.plist"];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     __block typeof(self) bself = self;
@@ -35,6 +51,24 @@
 - (void) dealloc {
     [_task cancel];
     [_task release];
+# update-network-classes-to-use-nsurlsession
+    [_session invalidateAndCancel];
+    [_session release];
+    [_buf release];
+    [super dealloc];
+}
+
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
+    [_buf appendData:data];
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    if (error) {
+        NSLog(@"MUversionChecker: failed to fetch latest version info.");
+        return;
+    }
+
+=======
     [super dealloc];
 }
 
