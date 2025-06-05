@@ -19,8 +19,7 @@
 @end
 
 @interface MUPublicServerListFetcher () {
-    NSURLConnection *_conn;
-    NSMutableData   *_buf;
+    NSURLSessionDataTask *_task;
 }
 @end
 
@@ -34,25 +33,24 @@
 }
 
 - (void) dealloc {
+    [_task cancel];
+    [_task release];
     [super dealloc];
 }
 
 - (void) attemptUpdate {
-    NSURLRequest *req = [NSURLRequest requestWithURL:[MKServices regionalServerListURL]];
-    _conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-    _buf = [[NSMutableData alloc] init];
+    NSURL *url = [MKServices regionalServerListURL];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    __block typeof(self) bself = self;
+    _task = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error && data) {
+            [data writeToFile:[MUPublicServerList filePath] atomically:YES];
+        }
+    }];
+    [_task resume];
 }
 
-- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [_buf appendData:data];
-}
 
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-}
-
-- (void) connectionDidFinishLoading:(NSURLConnection *)connection {
-    [_buf writeToFile:[MUPublicServerList filePath] atomically:YES];
-}
 
 
 @end

@@ -5,12 +5,8 @@
 #import "MUVersionChecker.h"
 
 @interface MUVersionChecker () {
-    NSURLConnection *_conn;
-    NSMutableData   *_buf;
+    NSURLSessionDataTask *_task;
 }
-- (void) connection:(NSURLConnection *)conn didReceiveData:(NSData *)data;
-- (void) connection:(NSURLConnection *)conn didFailWithError:(NSError *)error;
-- (void) connectionDidFinishLoading:(NSURLConnection *)conn;
 - (void) newBuildAvailable;
 @end
 
@@ -21,31 +17,30 @@
     if (!self)
         return nil;
 
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mumble-ios.appspot.com/latest.plist"]];
-    _conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-    _buf = [[NSMutableData alloc] init];
+    NSURL *url = [NSURL URLWithString:@"https://mumble-ios.appspot.com/latest.plist"];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    __block typeof(self) bself = self;
+    _task = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (error || !data) {
+            NSLog(@"MUversionChecker: failed to fetch latest version info.");
+            return;
+        }
+        [bself parseData:data];
+    }];
+    [_task resume];
 
     return self;
 }
 
 - (void) dealloc {
-    [_conn cancel];
-    [_conn release];
-    [_buf release];
+    [_task cancel];
+    [_task release];
     [super dealloc];
 }
 
-- (void) connection:(NSURLConnection *)conn didReceiveData:(NSData *)data {
-    [_buf appendData:data];
-}
-
-- (void) connection:(NSURLConnection *)conn didFailWithError:(NSError *)error {
-    NSLog(@"MUversionChecker: failed to fetch latest version info.");
-}
-
-- (void) connectionDidFinishLoading:(NSURLConnection *)conn {
+- (void)parseData:(NSData *)data {
     NSPropertyListFormat fmt = NSPropertyListXMLFormat_v1_0;
-    NSDictionary *dict = [NSPropertyListSerialization propertyListWithData:_buf options:0 format:&fmt error:nil];
+    NSDictionary *dict = [NSPropertyListSerialization propertyListWithData:data options:0 format:&fmt error:nil];
     if (dict) {
         NSBundle *mainBundle = [NSBundle mainBundle];
         NSString *ourRev = [mainBundle objectForInfoDictionaryKey:@"MumbleGitRevision"];

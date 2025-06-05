@@ -157,23 +157,9 @@
     }
 }
 
+
 #pragma mark -
 #pragma mark About Dialog
-
-- (void) alertView:(UIAlertView *)alert didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mumbleapp.com/"]];
-    } else if (buttonIndex == 2) {
-        MULegalViewController *legalView = [[MULegalViewController alloc] init];
-        UINavigationController *navController = [[UINavigationController alloc] init];
-        [navController pushViewController:legalView animated:NO];
-        [legalView release];
-        [[self navigationController] presentModalViewController:navController animated:YES];
-        [navController release];
-    } else if (buttonIndex == 3) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:support@mumbleapp.com"]];
-    }
-}
 
 #pragma mark - Actions
 
@@ -188,13 +174,37 @@
 #endif
     NSString *aboutMessage = NSLocalizedString(@"Low latency, high quality voice chat", nil);
     
-    UIAlertView *aboutView = [[UIAlertView alloc] initWithTitle:aboutTitle message:aboutMessage delegate:self
-                                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                              otherButtonTitles:NSLocalizedString(@"Website", nil),
-                              NSLocalizedString(@"Legal", nil),
-                              NSLocalizedString(@"Support", nil), nil];
-    [aboutView show];
-    [aboutView release];
+    UIAlertController *aboutView = [UIAlertController alertControllerWithTitle:aboutTitle
+                                                                       message:aboutMessage
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                 style:UIAlertActionStyleCancel
+                                               handler:nil];
+    UIAlertAction *website = [UIAlertAction actionWithTitle:NSLocalizedString(@"Website", nil)
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction *a){
+                                                       [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.mumbleapp.com/"]];
+                                                   }];
+    UIAlertAction *legal = [UIAlertAction actionWithTitle:NSLocalizedString(@"Legal", nil)
+                                                   style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction *a){
+                                                     MULegalViewController *legalView = [[MULegalViewController alloc] init];
+                                                     UINavigationController *navController = [[UINavigationController alloc] init];
+                                                     [navController pushViewController:legalView animated:NO];
+                                                     [legalView release];
+                                                     [[self navigationController] presentModalViewController:navController animated:YES];
+                                                     [navController release];
+                                                 }];
+    UIAlertAction *support = [UIAlertAction actionWithTitle:NSLocalizedString(@"Support", nil)
+                                                    style:UIAlertActionStyleDefault
+                                                  handler:^(UIAlertAction *a){
+                                                      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:support@mumbleapp.com"]];
+                                                  }];
+    [aboutView addAction:ok];
+    [aboutView addAction:website];
+    [aboutView addAction:legal];
+    [aboutView addAction:support];
+    [self presentViewController:aboutView animated:YES completion:nil];
 }
 
 - (void) prefsButtonClicked:(id)sender {
