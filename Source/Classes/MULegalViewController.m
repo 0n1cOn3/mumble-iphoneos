@@ -4,9 +4,10 @@
 
 #import "MULegalViewController.h"
 #import "MUOperatingSystem.h"
+#import <WebKit/WebKit.h>
 
-@interface MULegalViewController () <UIWebViewDelegate> {
-    IBOutlet UIWebView *_webView;
+@interface MULegalViewController () <WKNavigationDelegate> {
+    IBOutlet WKWebView *_webView;
 }
 @end
 
@@ -23,7 +24,7 @@
     [super viewDidLoad];
     _webView.backgroundColor = [UIColor clearColor];
     _webView.opaque = NO;
-    _webView.delegate = self;
+    _webView.navigationDelegate = self;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -42,14 +43,14 @@
     [done release];
 
     NSData *html = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Legal" ofType:@"html"]];
-    [_webView loadData:html MIMEType:@"text/html" textEncodingName:@"utf-8" baseURL:nil];
+    [_webView loadData:html MIMEType:@"text/html" characterEncodingName:@"utf-8" baseURL:nil];
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void) webViewDidFinishLoad:(UIWebView *)webView {
+- (void) webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     _webView.backgroundColor = [UIColor blackColor];
     _webView.opaque = YES;
 }
