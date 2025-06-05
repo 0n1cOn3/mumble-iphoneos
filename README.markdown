@@ -46,3 +46,18 @@ We also recommend you to edit the default scheme for the Mumble target
 and change the Archive configuration to BetaDist, and the Test configuration
 to Release (debug builds pretty slow for devices, but for the Simulator, they're
 OK!)
+
+Cross-platform building with xtool
+---------------------------------
+
+Mumble can also be built using [xtool](https://github.com/segiddins/xtool). Make
+sure `xtool` is installed and available in your `PATH`.
+
+The provided `Makefile` exposes convenient targets for building or running the
+app using xtool:
+
+    make build  # builds Mumble for iOS 9-18
+    make run    # launches the app in the simulator
+
+Other targets such as `make pack` or `make install` package the app as an `.ipa`
+and install it on a connected device.
