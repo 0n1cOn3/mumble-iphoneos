@@ -1,9 +1,8 @@
 Mumble for iOS (iPhone, iPod touch and iPad)
 ============================================
 
-**Note:** This repo and the app for iOS are unmaintained.
+**Note:** This repo and the app for iOS is WIP.
 If you are interested in taking over development of the app, write a comment in [#129](https://github.com/mumble-voip/mumble-iphoneos/issues/129).
-
 
 This is the source code of Mumble (a voice chat application) for iOS-based devices.
 
@@ -16,7 +15,7 @@ Visit our website at:
 Building it
 ===========
 
-To build this you need Xcode 4 and the latest iOS SDK from Apple.
+To build this you need Xcode 13 and the latest iOS SDK from Apple.
 
 The easiest way to get a working source tree is to check out
 the mumble-iphoneos repository recursively (his will recursively
@@ -24,13 +23,12 @@ fetch all submodules), because there are quite a few submodules.
 
 To fetch the repository:
 
-    $ git clone --recursive http://github.com/mumble-voip/mumble-iphoneos.git
+    $ git clone --recursive http://github.com/0n1cO3/mumble-iphoneos.git
 
 Once this is done, you should be able to open up the Xcode
 project file for Mumble (Mumble.xcodeproj) in the root of
 the source tree and hit Cmd-B to build!
 
-**Note:** The project currently only works in the legacy build system, which is available in **XCode version 13**, but not in XCode version 14. We will need someone to fix that facing forward.
 
 Extra tips for advanced users
 =============================
@@ -40,7 +38,7 @@ remove all schemes but the Mumble one. Xcode will automatically populate
 it with the schemes of all .xcodeprojs in the workspace.
 
 Schemes can be configured using the dropdown box right of the start and stop
-buttons in the default Xcode 4 UI.
+buttons in the default Xcode 13 UI.
 
 We also recommend you to edit the default scheme for the Mumble target
 and change the Archive configuration to BetaDist, and the Test configuration
@@ -61,3 +59,11 @@ app using xtool:
 
 Other targets such as `make pack` or `make install` package the app as an `.ipa`
 and install it on a connected device.
+
+Running the unit tests
+----------------------
+
+The included test suite uses the XCTest framework. To execute the tests,
+open `Mumble.xcodeproj` and run the **Test** action (⌘U) or invoke
+`xcodebuild test`. The resulting `MumbleTests.xctest` bundle is run via
+`xcrun xctest`.
