@@ -37,8 +37,6 @@
 }
 
 - (void) dealloc {
-    [_certificateItems release];
-    [super dealloc];
 }
 
 #pragma mark -
@@ -72,7 +70,6 @@
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonClicked:)];
     [self.navigationItem setRightBarButtonItem:addButton];
-    [addButton release];
 }
 
 #pragma mark -
@@ -100,7 +97,7 @@
     [cell setIssuerText:[cert issuerName]];
     
     if ([cert isValidOnDate:[NSDate date]]) {
-        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] ];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         NSString *formattedDate = [dateFormatter stringFromDate:[cert notAfter]];
         NSString *fmt = NSLocalizedString(@"Expires on %@", @"Certificate expiry explanation");
@@ -180,7 +177,6 @@
     NSData *persistentRef = [dict objectForKey:@"persistentRef"];
     MUCertificateViewController *certView = [[MUCertificateViewController alloc] initWithPersistentRef:persistentRef];
     [[self navigationController] pushViewController:certView animated:YES];
-    [certView release];
 }
 
 #pragma mark -
@@ -189,6 +185,20 @@
 - (void) addButtonClicked:(UIBarButtonItem *)addButton {
     NSString *showAllCerts = NSLocalizedString(@"Show All Certificates", nil);
     NSString *showIdentities = NSLocalizedString(@"Show Identities Only", nil);
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:NSLocalizedString(@"Generate New Certificate", nil),
+                                                                _showAll ? showIdentities : showAllCerts,
+                                                                NSLocalizedString(@"Import From iTunes", nil),
+                            nil];
+    [sheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
+    [sheet showInView:self.view];
+}
+
+#pragma mark -
+#pragma mark UIActionSheet delegate
     UIAlertController *sheet = [UIAlertController alertControllerWithTitle:nil
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
@@ -200,14 +210,15 @@
         navCtrl.modalPresentationStyle = UIModalPresentationCurrentContext;
         MUCertificateCreationView *certGen = [[MUCertificateCreationView alloc] init];
         [navCtrl pushViewController:certGen animated:NO];
-        [certGen release];
         [[self navigationController] presentModalViewController:navCtrl animated:YES];
+    } else if (idx == 1) { // Show All Certificates; Show Identities Only
         [navCtrl release];
     }];
 
     UIAlertAction *toggle = [UIAlertAction actionWithTitle:(_showAll ? showIdentities : showAllCerts)
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction *action) {
+
         _showAll = !_showAll;
         [[NSUserDefaults standardUserDefaults] setBool:_showAll forKey:@"CertificatesShowIntermediates"];
         [self fetchCertificates];
@@ -220,6 +231,7 @@
         MUCertificateDiskImportViewController *diskImportViewController = [[MUCertificateDiskImportViewController alloc] init];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:diskImportViewController];
         [[self navigationController] presentModalViewController:navController animated:YES];
+    }
         [diskImportViewController release];
         [navController release];
     }];
@@ -235,6 +247,7 @@
 
     sheet.popoverPresentationController.barButtonItem = addButton;
     [self presentViewController:sheet animated:YES completion:nil];
+
 }
 
 #pragma mark -
@@ -243,7 +256,6 @@
 - (void) fetchCertificates {
     NSArray *persistentRefs = [MUCertificateController persistentRefsForIdentities];
 
-    [_certificateItems release];
     _certificateItems = nil;
 
     if (persistentRefs) {
@@ -262,7 +274,7 @@
 
     if (_showAll) {
         // Extract hashes of identity certs
-        NSMutableArray *identityCertHashes = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *identityCertHashes = [[[NSMutableArray alloc] init] ];
         for (NSDictionary *item in _certificateItems) {
             [identityCertHashes addObject:[[item objectForKey:@"cert"] digest]];
         }
@@ -274,7 +286,7 @@
                                     kSecMatchLimitAll,    kSecMatchLimit, nil];
         NSArray *persistentRefs = nil;
         SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&persistentRefs);
-        [persistentRefs autorelease];
+        [persistentRefs ];
     
         for (NSData *ref in persistentRefs) {
             NSDictionary *query = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -289,7 +301,6 @@
                 
                 MKCertificate *consideredCert = [MKCertificate certificateWithCertificate:certData privateKey:nil];
                 NSData *consideredDigest = [consideredCert digest];
-                [certData release];
     
                 BOOL alreadyPresent = NO;
                 for (NSData *digest in identityCertHashes) {

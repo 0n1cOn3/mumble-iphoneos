@@ -24,8 +24,6 @@
 }
 
 - (void) dealloc {
-    [_imgView release];
-    [super dealloc];
 }
 
 - (UIPopoverArrowDirection) arrowDirection {

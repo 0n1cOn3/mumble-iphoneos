@@ -18,15 +18,12 @@
 
 - (id) initWithImages:(NSArray *)images {
     if ((self = [super init])) {
-        _images = [images retain];
         _curPage = 0;
     }
     return self;
 }
 
 - (void) dealloc {
-    [_images release];
-    [super dealloc];
 }
 
 - (void) viewDidLoad {
@@ -61,8 +58,6 @@
         [imgZoomer setShowsHorizontalScrollIndicator:NO];
         [_scrollView addSubview:imgZoomer];
         [imageViews addObject:imgView];
-        [imgView release];
-        [imgZoomer release];
         ++i;
     }
 
@@ -73,8 +68,6 @@
 
 - (void) viewDidUnload {
     [super viewDidUnload];
-    [_scrollView release];
-    [_imageViews release];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -96,7 +89,6 @@
     
     UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionClicked:)];
     self.navigationItem.rightBarButtonItem = actionButton;
-    [actionButton release];
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -128,6 +120,12 @@
 
 - (void) image:(UIImage *)img didFinishSavingWithError:(NSError *)err contextInfo:(void *)userInfo {
     if (err != nil) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Unable to save image", nil)
+                                                            message:[err description]
+                                                           delegate:nil 
+                                                   cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil];
+        [alertView show];
         UIAlertController *alertView = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to save image", nil)
                                                                            message:[err description]
                                                                     preferredStyle:UIAlertControllerStyleAlert];
@@ -139,6 +137,13 @@
 }
 
 - (void) actionClicked:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Export Image", nil)
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:NSLocalizedString(@"Export to Photos", nil), nil];
+    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackOpaque];
+    [actionSheet showFromBarButtonItem:sender animated:YES];
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Export Image", nil)
                                                                            message:nil
                                                                     preferredStyle:UIAlertControllerStyleActionSheet];

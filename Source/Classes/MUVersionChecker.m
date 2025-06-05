@@ -32,7 +32,6 @@
     _session = [[NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil] retain];
     _task = [[_session dataTaskWithRequest:req] retain];
     _buf = [[NSMutableData alloc] init];
-=======
     NSURL *url = [NSURL URLWithString:@"https://mumble-ios.appspot.com/latest.plist"];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     __block typeof(self) bself = self;
@@ -49,6 +48,7 @@
 }
 
 - (void) dealloc {
+    [_conn cancel];
     [_task cancel];
     [_task release];
 # update-network-classes-to-use-nsurlsession
@@ -68,7 +68,6 @@
         return;
     }
 
-=======
     [super dealloc];
 }
 
@@ -101,7 +100,6 @@
                                           cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                           otherButtonTitles:NSLocalizedString(@"Upgrade", nil), nil];
     [alert show];
-    [alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

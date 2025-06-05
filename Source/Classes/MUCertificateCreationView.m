@@ -17,7 +17,6 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
         NSString *ok = NSLocalizedString(@"OK", nil);
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:ok otherButtonTitles:nil];
         [alert show];
-        [alert release];
     });
 }
 
@@ -103,7 +102,6 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
 }
 
 - (void) dealloc {
-    [super dealloc];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -135,11 +133,9 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
 
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:cancel style:UIBarButtonItemStylePlain target:self action:@selector(cancelClicked:)];
     [[self navigationItem] setLeftBarButtonItem:cancelButton];
-    [cancelButton release];
 
     UIBarButtonItem *createButton = [[UIBarButtonItem alloc] initWithTitle:create style:UIBarButtonItemStyleDone target:self action:@selector(createClicked:)];
     [[self navigationItem] setRightBarButtonItem:createButton];
-    [createButton release];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
@@ -196,10 +192,8 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
 
 - (void) textFieldDidChange:(UITextField *)sender {
     if (sender == _nameField) {
-        [_fullName release];
         _fullName = [[sender text] copy];
     } else if (sender == _emailField) {
-        [_emailAddress release];
         _emailAddress = [[sender text] copy];
     }
 }
@@ -274,7 +268,6 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
 
     MUCertificateCreationProgressView *progress = [[MUCertificateCreationProgressView alloc] initWithName:name email:email];
     [[self navigationController] pushViewController:progress animated:YES];
-    [progress release];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         OSStatus err = noErr;

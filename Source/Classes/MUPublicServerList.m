@@ -23,7 +23,6 @@
     NSURLSession           *_session;
     NSURLSessionDataTask   *_task;
     NSMutableData          *_buf;
-=======
 @interface MUPublicServerListFetcher () {
     NSURLSessionDataTask *_task;
 }
@@ -114,12 +113,6 @@
 }
 
 - (void) dealloc {
-    [_serverListXML release];
-    [_modelContinents release];
-    [_modelCountries release];
-    [_continentNames release];
-    [_countryNames release];
-    [super dealloc];
 }
 
 - (void) parse {
@@ -134,13 +127,10 @@
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:_serverListXML];
     [parser setDelegate:(id<NSXMLParserDelegate>)self];
     [parser parse];
-    [parser release];
 
     // Transform from NSDictionary representation to a NSArray-model
     NSArray *continentCodes = [[_continentNames allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    [_modelContinents release];
     _modelContinents = [[NSMutableArray alloc] initWithCapacity:[continentCodes count]];
-    [_modelCountries release];
     _modelCountries = [[NSMutableArray alloc] init];
 
     for (NSString *key in continentCodes) {
@@ -162,15 +152,10 @@
         [_modelCountries addObject:countries];
     }
 
-    [_continentCountries release];
-    [_countryServers release];
     _continentCountries = nil;
     _countryServers = nil;
     _parsed = YES;
 }
-
-#pragma mark -
-#pragma mark NSXMLParserDelegate methods
 
 - (void) parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
     if ([elementName isEqualToString:@"server"]) {
@@ -184,7 +169,7 @@
                 [_countryServers setObject:array forKey:countryCode];
             }
             // Add attribute dict to server array.
-            [array addObject:[attributeDict retain]];
+            [array addObject:[attributeDict]];
 
             // Extract the continent code of the country
             NSString *continentCode = [attributeDict objectForKey:@"continent_code"];
