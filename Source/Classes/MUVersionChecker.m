@@ -4,13 +4,13 @@
 
 #import "MUVersionChecker.h"
 
-@interface MUVersionChecker () {
-    NSURLConnection *_conn;
-    NSMutableData   *_buf;
+@interface MUVersionChecker () <NSURLSessionDataDelegate> {
+    NSURLSession         *_session;
+    NSURLSessionDataTask *_task;
+    NSMutableData        *_buf;
 }
-- (void) connection:(NSURLConnection *)conn didReceiveData:(NSData *)data;
-- (void) connection:(NSURLConnection *)conn didFailWithError:(NSError *)error;
-- (void) connectionDidFinishLoading:(NSURLConnection *)conn;
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data;
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
 - (void) newBuildAvailable;
 @end
 
@@ -22,28 +22,34 @@
         return nil;
 
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://mumble-ios.appspot.com/latest.plist"]];
-    _conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    _session = [[NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil] retain];
+    _task = [[_session dataTaskWithRequest:req] retain];
     _buf = [[NSMutableData alloc] init];
+    [_task resume];
 
     return self;
 }
 
 - (void) dealloc {
-    [_conn cancel];
-    [_conn release];
+    [_task cancel];
+    [_task release];
+    [_session invalidateAndCancel];
+    [_session release];
     [_buf release];
     [super dealloc];
 }
 
-- (void) connection:(NSURLConnection *)conn didReceiveData:(NSData *)data {
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
     [_buf appendData:data];
 }
 
-- (void) connection:(NSURLConnection *)conn didFailWithError:(NSError *)error {
-    NSLog(@"MUversionChecker: failed to fetch latest version info.");
-}
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    if (error) {
+        NSLog(@"MUversionChecker: failed to fetch latest version info.");
+        return;
+    }
 
-- (void) connectionDidFinishLoading:(NSURLConnection *)conn {
     NSPropertyListFormat fmt = NSPropertyListXMLFormat_v1_0;
     NSDictionary *dict = [NSPropertyListSerialization propertyListWithData:_buf options:0 format:&fmt error:nil];
     if (dict) {

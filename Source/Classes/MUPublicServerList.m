@@ -18,9 +18,10 @@
 + (NSString *) filePath;
 @end
 
-@interface MUPublicServerListFetcher () {
-    NSURLConnection *_conn;
-    NSMutableData   *_buf;
+@interface MUPublicServerListFetcher () <NSURLSessionDataDelegate> {
+    NSURLSession           *_session;
+    NSURLSessionDataTask   *_task;
+    NSMutableData          *_buf;
 }
 @end
 
@@ -34,24 +35,38 @@
 }
 
 - (void) dealloc {
+    [_task cancel];
+    [_task release];
+    [_session invalidateAndCancel];
+    [_session release];
+    [_buf release];
     [super dealloc];
 }
 
 - (void) attemptUpdate {
     NSURLRequest *req = [NSURLRequest requestWithURL:[MKServices regionalServerListURL]];
-    _conn = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    _session = [[NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil] retain];
+    _task = [[_session dataTaskWithRequest:req] retain];
     _buf = [[NSMutableData alloc] init];
+    [_task resume];
 }
 
-- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
     [_buf appendData:data];
 }
 
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-}
-
-- (void) connectionDidFinishLoading:(NSURLConnection *)connection {
-    [_buf writeToFile:[MUPublicServerList filePath] atomically:YES];
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    if (!error) {
+        [_buf writeToFile:[MUPublicServerList filePath] atomically:YES];
+    }
+    [_buf release];
+    _buf = nil;
+    [_task release];
+    _task = nil;
+    [_session finishTasksAndInvalidate];
+    [_session release];
+    _session = nil;
 }
 
 
