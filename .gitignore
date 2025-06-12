@@ -5,3 +5,8 @@ MumbleKit/build/*
 *.mode1v3
 project.xcworkspace
 xcuserdata
+.build/
+Package.resolved
+squashfs-root/
+xtool/
+swift-sdks/

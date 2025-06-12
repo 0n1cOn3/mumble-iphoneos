@@ -29,7 +29,7 @@
 
 #include <celt.h>
 
-#import "Mumble.pb.h"
+#import <MumbleKit/Mumble.pb.h>
 
 // The bitstream we should send to the server.
 // It's currently hard-coded.
