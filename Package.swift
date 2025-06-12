@@ -28,7 +28,10 @@ let package = Package(
             name: "MumbleKit",
             path: "MumbleKit",
             sources: ["src"],
-            publicHeadersPath: "src"
+            publicHeadersPath: "src",
+            cSettings: [
+                .headerSearchPath("3rdparty/openssl/include")
+            ]
         )
     ]
 )
