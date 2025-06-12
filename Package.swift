@@ -3,18 +3,20 @@ import PackageDescription
 
 let package = Package(
     name: "Mumble",
-    platforms: [.iOS(.v9)],
+    defaultLocalization: "en",
+    platforms: [.iOS(.v12)],
     products: [
-        .library(name: "MumbleApp", targets: ["Mumble"])
+        .executable(name: "MumbleApp", targets: ["Mumble"])
     ],
     dependencies: [
         // Local dependency expected at MumbleKit
     ],
     targets: [
-        .target(
+        .executableTarget(
             name: "Mumble",
             dependencies: ["MumbleKit"],
             path: "Source",
+            exclude: ["Classes/LaunchScreen.storyboard", "MainWindow.xib"],
             sources: ["Classes", "main.m"],
             resources: [
                 .copy("Classes/LaunchScreen.storyboard"),
@@ -25,7 +27,8 @@ let package = Package(
         .target(
             name: "MumbleKit",
             path: "MumbleKit",
-            publicHeadersPath: "."
+            sources: ["src"],
+            publicHeadersPath: "src"
         )
     ]
 )
