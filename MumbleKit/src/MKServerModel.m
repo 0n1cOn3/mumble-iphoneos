@@ -8,7 +8,7 @@
 #import <MumbleKit/MKAudio.h>
 #import "MKPacketDataStream.h"
 #import "MKUtils.h"
-#import "Mumble.pb.h"
+#import <MumbleKit/Mumble.pb.h>
 
 #import <MumbleKit/MKChannel.h>
 #import "MKChannelPrivate.h"

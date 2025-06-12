@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-#import "MKServerPinger.h"
+#import <MumbleKit/MKServerPinger.h>
 
 #if TARGET_OS_IPHONE == 1
 # import <CFNetwork/CFNetwork.h>
