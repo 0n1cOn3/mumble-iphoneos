@@ -1,5 +1,5 @@
 version: 1
-product: Mumble
+product: MumbleKit
 bundleID: info.mumble.Mumble
 deploymentTarget: 9.0
 infoPath: Source/Info.plist
