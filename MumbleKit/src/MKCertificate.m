@@ -5,12 +5,12 @@
 #import <MumbleKit/MKCertificate.h>
 #import "MKDistinguishedNameParser.h"
 
-#include <openssl/evp.h>
-#include <openssl/err.h>
-#include <openssl/bio.h>
-#include <openssl/x509.h>
-#include <openssl/x509v3.h>
-#include <openssl/pkcs12.h>
+#include <OpenSSL/evp.h>
+#include <OpenSSL/err.h>
+#include <OpenSSL/bio.h>
+#include <OpenSSL/x509.h>
+#include <OpenSSL/x509v3.h>
+#include <OpenSSL/pkcs12.h>
 #include <time.h>
 #include <xlocale.h>
 
