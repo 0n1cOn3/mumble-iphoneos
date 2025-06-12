@@ -6,7 +6,8 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [.iOS(.v12)],
     products: [
-        .executable(name: "MumbleApp", targets: ["Mumble"])
+        .executable(name: "Mumble", targets: ["Mumble"]),
+        .library(name: "MumbleKit", targets: ["MumbleKit"])
     ],
     dependencies: [
         // Local dependency expected at MumbleKit
