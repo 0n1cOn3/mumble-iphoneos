@@ -1,0 +1,10 @@
+#!/bin/bash
+rev=$(git rev-parse HEAD)
+rm -rf ghpages
+git clone git@github.com:mumble-voip/mumblekit.git --branch gh-pages ghpages
+doxygen Doxyfile
+rsync -avz html/* ghpages/
+cd ghpages
+git add .
+git commit -m "doc: update to MumbleKit ${rev}"
+git push git@github.com:mumble-voip/mumblekit.git gh-pages
