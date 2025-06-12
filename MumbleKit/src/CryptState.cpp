@@ -13,7 +13,7 @@
 
 #include "CryptState.h"
 
-#include <openssl/rand.h>
+#include <OpenSSL/rand.h>
 #include <stdint.h>
 #include <string.h>
 

@@ -10,6 +10,7 @@ let package = Package(
     ],
     dependencies: [
         // Local dependency expected at MumbleKit
+        .package(url: "https://github.com/krzyzanowskim/OpenSSL.git", from: "3.3.0")
     ],
     targets: [
         .executableTarget(
@@ -26,12 +27,12 @@ let package = Package(
         ),
         .target(
             name: "MumbleKit",
+            dependencies: ["OpenSSL"],
             path: "MumbleKit",
+            exclude: ["src/MumbleKit.pch", "src/MumbleKit-MacOSX.plist"],
             sources: ["src"],
             publicHeadersPath: "src",
-            cSettings: [
-                .headerSearchPath("3rdparty/openssl/include")
-            ]
+            cSettings: []
         )
     ]
 )

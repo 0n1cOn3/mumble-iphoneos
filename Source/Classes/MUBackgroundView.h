@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface MUBackgroundView : UIView
 + (UIView *) backgroundView;

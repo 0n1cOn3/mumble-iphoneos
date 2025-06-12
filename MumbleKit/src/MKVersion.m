@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #import <MumbleKit/MKVersion.h>
+#import <dispatch/dispatch.h>
 
 @interface MKVersion () {
     NSString  *_overrideReleaseString;
