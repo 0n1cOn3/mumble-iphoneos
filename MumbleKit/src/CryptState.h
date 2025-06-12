@@ -5,7 +5,7 @@
 #ifndef _CRYPTSTATE_H
 #define _CRYPTSTATE_H
 
-#include <openssl/aes.h>
+#include <OpenSSL/aes.h>
 
 namespace MumbleClient {
 
