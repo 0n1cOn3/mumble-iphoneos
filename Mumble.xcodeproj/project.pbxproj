@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
                 1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
                 AE5BBD500000000000000005 /* MUApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5BBD3D0000000000000003 /* MUApplicationDelegate.swift */; };
-                AE5BBD510000000000000006 /* MUSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5BBD3E0000000000000004 /* MUSceneDelegate.swift */; };
+AE5BBD510000000000000006 /* MUSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5BBD3E0000000000000004 /* MUSceneDelegate.swift */; };
+AE5BBD520000000000000007 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5BBD3F0000000000000005 /* BadgeView.swift */; };
                 1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2801C35B11CA9F1A00E664E8 /* MUPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2801C35A11CA9F1A00E664E8 /* MUPreferencesViewController.m */; };
@@ -91,7 +92,6 @@
 		287A686714C6FB9F008B1BE7 /* GrayCheckmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 287A686514C6FB9F008B1BE7 /* GrayCheckmark.png */; };
 		287A686814C6FB9F008B1BE7 /* GrayCheckmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 287A686614C6FB9F008B1BE7 /* GrayCheckmark@2x.png */; };
 		287A686F14C76E56008B1BE7 /* MUMessageAttachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287A686E14C76E56008B1BE7 /* MUMessageAttachmentViewController.m */; };
-		287A687414C777CC008B1BE7 /* GTMStringEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 287A687314C777CC008B1BE7 /* GTMStringEncoding.m */; };
 		287BA29011B96C960010E031 /* MUDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 287BA28F11B96C960010E031 /* MUDatabase.m */; };
 		287BA33B11B97C470010E031 /* MUFavouriteServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 287BA33A11B97C470010E031 /* MUFavouriteServer.m */; };
 		287BA34011B97EEE0010E031 /* MUFavouriteServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287BA33F11B97EEE0010E031 /* MUFavouriteServerListController.m */; };
@@ -189,7 +189,6 @@
 		28F9E1BF15EBDF2400D52001 /* MURemoteControlServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F9E1BE15EBDF2400D52001 /* MURemoteControlServer.m */; };
 		28FAA35F14D74C1600F6D711 /* SmallMumbleIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 28FAA35D14D74C1600F6D711 /* SmallMumbleIcon.png */; };
 		28FAA36014D74C1600F6D711 /* SmallMumbleIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28FAA35E14D74C1600F6D711 /* SmallMumbleIcon@2x.png */; };
-		28FAA36414D7551600F6D711 /* MKNumberBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28FAA36314D7551600F6D711 /* MKNumberBadgeView.m */; };
 		337ACFEB25BC8393005E1A62 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 337ACFEA25BC8393005E1A62 /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
@@ -342,8 +341,6 @@
 		287A686D14C76E55008B1BE7 /* MUMessageAttachmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUMessageAttachmentViewController.h; sourceTree = "<group>"; };
 		287A686E14C76E56008B1BE7 /* MUMessageAttachmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUMessageAttachmentViewController.m; sourceTree = "<group>"; };
 		287A687114C777CC008B1BE7 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
-		287A687214C777CC008B1BE7 /* GTMStringEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMStringEncoding.h; sourceTree = "<group>"; };
-		287A687314C777CC008B1BE7 /* GTMStringEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMStringEncoding.m; sourceTree = "<group>"; };
 		287BA28E11B96C960010E031 /* MUDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUDatabase.h; sourceTree = "<group>"; };
 		287BA28F11B96C960010E031 /* MUDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUDatabase.m; sourceTree = "<group>"; };
 		287BA33911B97C470010E031 /* MUFavouriteServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUFavouriteServer.h; sourceTree = "<group>"; };
@@ -478,13 +475,12 @@
 		28F9E1BE15EBDF2400D52001 /* MURemoteControlServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MURemoteControlServer.m; sourceTree = "<group>"; };
 		28FAA35D14D74C1600F6D711 /* SmallMumbleIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SmallMumbleIcon.png; path = Resources/SmallMumbleIcon.png; sourceTree = "<group>"; };
 		28FAA35E14D74C1600F6D711 /* SmallMumbleIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SmallMumbleIcon@2x.png"; path = "Resources/SmallMumbleIcon@2x.png"; sourceTree = "<group>"; };
-		28FAA36214D7551600F6D711 /* MKNumberBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MKNumberBadgeView.h; path = Dependencies/MKNumberBadgeView/MKNumberBadgeView.h; sourceTree = "<group>"; };
-		28FAA36314D7551600F6D711 /* MKNumberBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MKNumberBadgeView.m; path = Dependencies/MKNumberBadgeView/MKNumberBadgeView.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/main.m; sourceTree = "<group>"; };
                 32CA4F630368D1EE00C91783 /* Mumble.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mumble.pch; path = Source/Mumble.pch; sourceTree = "<group>"; };
                 AE5BBD3B0000000000000001 /* Mumble-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Mumble-Bridging-Header.h"; path = Source/Mumble-Bridging-Header.h; sourceTree = "<group>"; };
                 AE5BBD3D0000000000000003 /* MUApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUApplicationDelegate.swift; sourceTree = "<group>"; };
-                AE5BBD3E0000000000000004 /* MUSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUSceneDelegate.swift; sourceTree = "<group>"; };
+AE5BBD3E0000000000000004 /* MUSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUSceneDelegate.swift; sourceTree = "<group>"; };
+AE5BBD3F0000000000000005 /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
                 AE5BBD620000000000000008 /* MumbleSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MumbleSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
                 337ACFEA25BC8393005E1A62 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -713,10 +709,8 @@
 		2861C28C116BE90B002B8514 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				28FAA36114D7550E00F6D711 /* MKNumberBadgeView */,
-				287A687014C777CC008B1BE7 /* gtm */,
-				28F9173911B9460D0030D649 /* fmdb */,
-				2861C28E116BE91B002B8514 /* MumbleKit.xcodeproj */,
+28F9173911B9460D0030D649 /* fmdb */,
+2861C28E116BE91B002B8514 /* MumbleKit.xcodeproj */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
@@ -774,17 +768,6 @@
 				28BE999E18CFF03D00910551 /* RightBalloonSelectedMono@2x.png */,
 			);
 			name = Apple;
-			sourceTree = "<group>";
-		};
-		287A687014C777CC008B1BE7 /* gtm */ = {
-			isa = PBXGroup;
-			children = (
-				287A687114C777CC008B1BE7 /* GTMDefines.h */,
-				287A687214C777CC008B1BE7 /* GTMStringEncoding.h */,
-				287A687314C777CC008B1BE7 /* GTMStringEncoding.m */,
-			);
-			name = gtm;
-			path = Dependencies/gtm;
 			sourceTree = "<group>";
 		};
 		28BF8E1C11D93A1900B72770 /* Database */ = {
@@ -909,15 +892,6 @@
 			name = fmdb;
 			sourceTree = "<group>";
 		};
-		28FAA36114D7550E00F6D711 /* MKNumberBadgeView */ = {
-			isa = PBXGroup;
-			children = (
-				28FAA36214D7551600F6D711 /* MKNumberBadgeView.h */,
-				28FAA36314D7551600F6D711 /* MKNumberBadgeView.m */,
-			);
-			name = MKNumberBadgeView;
-			sourceTree = "<group>";
-		};
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
@@ -964,16 +938,17 @@
                         name = Frameworks;
                         sourceTree = "<group>";
                 };
-                AE5BBD3C0000000000000002 /* Swift */ = {
-                        isa = PBXGroup;
-                        children = (
-                                AE5BBD3D0000000000000003 /* MUApplicationDelegate.swift */,
-                                AE5BBD3E0000000000000004 /* MUSceneDelegate.swift */,
-                        );
-                        name = Swift;
-                        path = Source/Swift;
-                        sourceTree = "<group>";
-                };
+AE5BBD3C0000000000000002 /* Swift */ = {
+isa = PBXGroup;
+children = (
+AE5BBD3D0000000000000003 /* MUApplicationDelegate.swift */,
+AE5BBD3E0000000000000004 /* MUSceneDelegate.swift */,
+AE5BBD3F0000000000000005 /* BadgeView.swift */,
+);
+name = Swift;
+path = Source/Swift;
+sourceTree = "<group>";
+};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1242,8 +1217,9 @@
 			buildActionMask = 2147483647;
 			files = (
                                 1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-                                AE5BBD500000000000000005 /* MUApplicationDelegate.swift in Sources */,
-                                AE5BBD510000000000000006 /* MUSceneDelegate.swift in Sources */,
+AE5BBD500000000000000005 /* MUApplicationDelegate.swift in Sources */,
+AE5BBD510000000000000006 /* MUSceneDelegate.swift in Sources */,
+AE5BBD520000000000000007 /* BadgeView.swift in Sources */,
                                 2861C276116BE905002B8514 /* MUApplicationDelegate.m in Sources */,
 				2861C27B116BE905002B8514 /* MUPublicServerList.m in Sources */,
 				2861C27C116BE905002B8514 /* MUPublicServerListController.m in Sources */,
@@ -1289,13 +1265,11 @@
 				2879528114C2504C00567430 /* MUMessageBubbleTableViewCell.m in Sources */,
 				287952B014C4D67500567430 /* MUMessageRecipientViewController.m in Sources */,
 				287A686F14C76E56008B1BE7 /* MUMessageAttachmentViewController.m in Sources */,
-				287A687414C777CC008B1BE7 /* GTMStringEncoding.m in Sources */,
 				2802AC0014C9E948000983A5 /* MUDataURL.m in Sources */,
 				2802AC0314CB0131000983A5 /* MUImage.m in Sources */,
 				2802AC0614CB024A000983A5 /* MUImageViewController.m in Sources */,
 				2802AC0D14CB2E2B000983A5 /* MUTextMessage.m in Sources */,
 				285AF26B1840DEE20065E339 /* MUAudioMixerDebugViewController.m in Sources */,
-				28FAA36414D7551600F6D711 /* MKNumberBadgeView.m in Sources */,
 				28EF155D14D8738C008A35A4 /* MUMessagesDatabase.m in Sources */,
 				28BE998518CFB96A00910551 /* MUHorizontalFlipTransitionDelegate.m in Sources */,
 				2882857D18CE39B40034F319 /* MUOperatingSystem.m in Sources */,
