@@ -3,37 +3,31 @@
 // license that can be found in the LICENSE file.
 
 #import "MUDataURL.h"
-#import "GTMStringEncoding.h"
+#import <Foundation/Foundation.h>
 
 @implementation MUDataURL
 
 // todo(mkrautz): Redo this with our own internal scanning and base64 decoding
 // to get rid of the string copying.
 + (NSData *) dataFromDataURL:(NSString *)dataURL {
-    GTMStringEncoding *base64decoder = [GTMStringEncoding rfc4648Base64StringEncoding];
-
-    // Read: data:<mimetype>;<encoding>,<data>
-    // Expect encoding = base64
-
     if (![dataURL hasPrefix:@"data:"])
         return nil;
-    NSString *mimeStr = [dataURL substringFromIndex:5];
-    NSRange r = [mimeStr rangeOfString:@";"];
-    if (r.location == NSNotFound)
-        return nil;
-    NSString *mimeType = [mimeStr substringToIndex:r.location];
-    (void) mimeType;
-    r.location += 1;
-    r.length = 7;
-    if ([mimeStr length] < r.location+r.length)
-        return nil;
-    if (![[mimeStr substringWithRange:r] isEqualToString:@"base64,"])
+
+    NSString *afterPrefix = [dataURL substringFromIndex:5];
+    NSRange semiRange = [afterPrefix rangeOfString:@";"];
+    if (semiRange.location == NSNotFound)
         return nil;
 
-    NSString *base64data = [mimeStr substringFromIndex:r.location+r.length];
-    base64data = [base64data stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    base64data = [base64data stringByReplacingOccurrencesOfString:@" " withString:@""];
-    return [base64decoder decode:base64data];
+    NSString *rest = [afterPrefix substringFromIndex:semiRange.location];
+    NSString *token = @";base64,";
+    if (![rest hasPrefix:token])
+        return nil;
+
+    NSString *base64Part = [rest substringFromIndex:[token length]];
+    base64Part = [base64Part stringByRemovingPercentEncoding];
+    base64Part = [base64Part stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSData *decoded = [[NSData alloc] initWithBase64EncodedString:base64Part options:0];
+    return decoded;
 }
 
 + (UIImage *) imageFromDataURL:(NSString *)dataURL {
