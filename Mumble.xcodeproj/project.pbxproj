@@ -188,7 +188,7 @@ AE5BBD9F00000000000000028 /* MUTextMessageProcessor.swift in Sources */ = {isa =
 		28F79C73147991490003B8BA /* MUAccessTokenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F79C72147991480003B8BA /* MUAccessTokenViewController.m */; };
 		28F79CA11479C2180003B8BA /* BackgroundTextureBlackGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F79CA01479C2180003B8BA /* BackgroundTextureBlackGradient@2x.png */; };
 		28F79CA31479C23F0003B8BA /* BackgroundTextureBlackGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 28F79CA21479C23F0003B8BA /* BackgroundTextureBlackGradient.png */; };
-		28F79CA9147AB62B0003B8BA /* MUNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F79CA8147AB6280003B8BA /* MUNotificationController.m */; };
+AE5BBDA1000000000000002A /* MUNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5BBDA00000000000000029 /* MUNotificationController.swift */; };
 		28F9174811B946250030D649 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F9174211B946250030D649 /* FMDatabase.m */; };
 		28F9174911B946250030D649 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F9174411B946250030D649 /* FMDatabaseAdditions.m */; };
 		28F9174B11B946250030D649 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F9174711B946250030D649 /* FMResultSet.m */; };
@@ -584,8 +584,8 @@ AE5BBD620000000000000008 /* MumbleSwift.framework */ = {isa = PBXFileReference; 
 				28F79C71147991480003B8BA /* MUAccessTokenViewController.h */,
 				28F79C72147991480003B8BA /* MUAccessTokenViewController.m */,
 				28F79CA41479D7E00003B8BA /* MUTableViewHeaderLabel.h */,
-				28F79CA7147AB6260003B8BA /* MUNotificationController.h */,
-				28F79CA8147AB6280003B8BA /* MUNotificationController.m */,
+                               28F79CA7147AB6260003B8BA /* MUNotificationController.h */,
+                               AE5BBDA00000000000000029 /* MUNotificationController.swift */,
 				28851B91147DC97D00088C4F /* MULegalViewController.h */,
 				28851B92147DC97D00088C4F /* MULegalViewController.m */,
 				28851B93147DC97D00088C4F /* MULegalViewController.xib */,
@@ -1275,7 +1275,7 @@ AE5BBD520000000000000007 /* BadgeView.swift in Sources */,
 				280D9ADA13EAFAAE003B64A0 /* MUServerRootViewController.m in Sources */,
 				283363DB13EF154C00A04F04 /* MUAudioTransmissionPreferencesViewController.m in Sources */,
 				28F79C73147991490003B8BA /* MUAccessTokenViewController.m in Sources */,
-				28F79CA9147AB62B0003B8BA /* MUNotificationController.m in Sources */,
+                               AE5BBDA1000000000000002A /* MUNotificationController.swift in Sources */,
 				28851B94147DC97E00088C4F /* MULegalViewController.m in Sources */,
 				28F08362147F263C00DC126F /* MUAudioBarView.m in Sources */,
 				28F08365147F369200DC126F /* MUAudioBarViewCell.m in Sources */,
