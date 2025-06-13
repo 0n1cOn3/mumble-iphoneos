@@ -1,28 +1,39 @@
-// swift-tools-version: 6.0
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
-    name: "MumbleApp",
+    name: "Mumble",
     defaultLocalization: "en",
-    platforms: [ .iOS(.v16) ],
+    platforms: [.iOS(.v12)],
     products: [
-        .executable(name: "MumbleApp", targets: ["MumbleApp"]),
-        .library(name: "MumbleCore", targets: ["MumbleCore"])
+        .executable(name: "Mumble", targets: ["Mumble"]),
+        .library(name: "MumbleKit", targets: ["MumbleKit"])
+    ],
+    dependencies: [
+        // Local dependency expected at MumbleKit
+        .package(url: "https://github.com/krzyzanowskim/OpenSSL.git", from: "3.3.0")
     ],
     targets: [
-        .target(
-            name: "MumbleCore",
-            path: "Sources/MumbleCore"
-        ),
         .executableTarget(
-            name: "MumbleApp",
-            dependencies: ["MumbleCore"],
-            path: "MumbleApp/Sources/MumbleApp"
+            name: "Mumble",
+            dependencies: ["MumbleKit"],
+            path: "Source",
+            exclude: ["Classes/LaunchScreen.storyboard", "MainWindow.xib"],
+            sources: ["Classes", "main.m"],
+            resources: [
+                .copy("Classes/LaunchScreen.storyboard"),
+                .copy("MainWindow.xib")
+            ],
+            publicHeadersPath: "Classes",
         ),
-        .testTarget(
-            name: "MumbleAppTests",
-            dependencies: ["MumbleApp"],
-            path: "MumbleApp/Tests/MumbleAppTests"
+        .target(
+            name: "MumbleKit",
+            dependencies: ["OpenSSL"],
+            path: "MumbleKit",
+            exclude: ["src/MumbleKit.pch", "src/MumbleKit-MacOSX.plist"],
+            sources: ["src"],
+            publicHeadersPath: "src",
+            cSettings: []
         )
     ]
 )
