@@ -939,7 +939,6 @@ isa = PBXGroup;
 children = (
 AE5BBD3D0000000000000003 /* MUApplicationDelegate.swift */,
 AE5BBD3E0000000000000004 /* MUSceneDelegate.swift */,
-AE5BBD3F0000000000000005 /* BadgeView.swift */,
 AE5BBD7A0000000000000011 /* MUOperatingSystem.swift */,
 AE5BBD8A0000000000000013 /* MUColor.swift */,
 AE5BBD8C0000000000000015 /* MUDataURL.swift */,
@@ -1294,7 +1293,6 @@ AE5BBD520000000000000007 /* BadgeView.swift in Sources */,
 files = (
 AE5BBD500000000000000005 /* MUApplicationDelegate.swift in Sources */,
 AE5BBD510000000000000006 /* MUSceneDelegate.swift in Sources */,
-AE5BBD520000000000000007 /* BadgeView.swift in Sources */,
 AE5BBD7B0000000000000012 /* MUOperatingSystem.swift in Sources */,
 AE5BBD8B0000000000000014 /* MUColor.swift in Sources */,
 AE5BBD8D0000000000000016 /* MUDataURL.swift in Sources */,
