@@ -33,6 +33,12 @@ the source tree and hit Cmd-B to build!
 Extra tips for advanced users
 =============================
 
+Modernized dependencies
+-----------------------
+Legacy Objective-C utilities such as MKNumberBadgeView and GTMStringEncoding
+have been replaced. A Swift-based `BadgeView` handles badge rendering and
+`Data(base64Encoded:)` is used for data URL decoding.
+
 When launching Mumble.xcodeproj for the first time, you're recommended to
 remove all schemes but the Mumble one. Xcode will automatically populate
 it with the schemes of all .xcodeprojs in the workspace.

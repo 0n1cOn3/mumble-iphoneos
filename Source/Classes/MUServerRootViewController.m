@@ -19,7 +19,7 @@
 #import <MumbleKit/MKCertificate.h>
 #import <MumbleKit/MKAudio.h>
 
-#import "MKNumberBadgeView.h"
+#import "Mumble-Swift.h"
 
 @interface MUServerRootViewController () <MKConnectionDelegate, MKServerModelDelegate, UIActionSheetDelegate, UIAlertViewDelegate> {
     MKConnection                *_connection;
@@ -30,7 +30,7 @@
     UIBarButtonItem             *_menuButton;
     UIBarButtonItem             *_smallIcon;
     UIButton                    *_modeSwitchButton;
-    MKNumberBadgeView           *_numberBadgeView;
+    BadgeView                   *_numberBadgeView;
 
     MUServerViewController      *_serverView;
     MUMessagesViewController    *_messagesView;
@@ -60,7 +60,7 @@
         _serverView = [[MUServerViewController alloc] initWithServerModel:_model];
         _messagesView = [[MUMessagesViewController alloc] initWithServerModel:_model];
         
-        _numberBadgeView = [[MKNumberBadgeView alloc] initWithFrame:CGRectZero];
+        _numberBadgeView = [[BadgeView alloc] initWithFrame:CGRectZero];
         _numberBadgeView.shadow = NO;
         _numberBadgeView.font = [UIFont boldSystemFontOfSize:10.0f];
         _numberBadgeView.hidden = YES;
