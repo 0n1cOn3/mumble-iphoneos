@@ -1365,20 +1365,22 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
+                               TARGETED_DEVICE_FAMILY = 1;
+                               SWIFT_OBJC_BRIDGING_HEADER = Source/Mumble-Bridging-Header.h;
+                       };
+                       name = Debug;
+               };
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
+                               TARGETED_DEVICE_FAMILY = 1;
+                               SWIFT_OBJC_BRIDGING_HEADER = Source/Mumble-Bridging-Header.h;
+                       };
+                       name = Release;
+               };
 		285D6B8C16BF02E900F239EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1522,10 +1524,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = AppStore;
-		};
+                               TARGETED_DEVICE_FAMILY = 1;
+                               SWIFT_OBJC_BRIDGING_HEADER = Source/Mumble-Bridging-Header.h;
+                       };
+                       name = AppStore;
+               };
 		28BC1E7A1227155500C03FCF /* BetaDist */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 285E2A62150D729B008AE185 /* BetaDist.xcconfig */;
@@ -1542,10 +1545,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = BetaDist;
-		};
+                               TARGETED_DEVICE_FAMILY = 1;
+                               SWIFT_OBJC_BRIDGING_HEADER = Source/Mumble-Bridging-Header.h;
+                       };
+                       name = BetaDist;
+               };
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 285E2A63150D729B008AE185 /* Debug.xcconfig */;
