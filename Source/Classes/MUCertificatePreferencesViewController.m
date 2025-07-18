@@ -75,7 +75,7 @@
     static NSString *CellIdentifier = @"CertificateCell";
     MUCertificateCell *cell = (MUCertificateCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
-        cell = [MUCertificateCell loadFromNib];
+        cell = [MUCertificateCell loadFromStoryboard];
     
     // Configure the cell...
     NSDictionary *dict = [_certificateItems objectAtIndex:[indexPath row]];

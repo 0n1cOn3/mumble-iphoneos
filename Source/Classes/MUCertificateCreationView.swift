@@ -161,7 +161,7 @@ class MUCertificateCreationView: UITableViewController {
     @objc private func createClicked(_ sender: Any) {
         let name = (fullName?.isEmpty ?? true) ? "Mumble User" : fullName!
         let email = (emailAddress?.isEmpty ?? true) ? nil : emailAddress
-        let progress = MUCertificateCreationProgressView(name: name, email: email)
+        let progress = MUCertificateCreationProgressView.progressView(withName: name, email: email)
         navigationController?.pushViewController(progress, animated: true)
         DispatchQueue.global(qos: .default).async {
             let cert = MKCertificate.selfSignedCertificate(withName: name, email: email)
