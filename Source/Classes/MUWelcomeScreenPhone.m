@@ -7,7 +7,7 @@
 #import "MUPublicServerListController.h"
 #import "MUFavouriteServerListController.h"
 #import "MULanServerListController.h"
-#import "MUPreferencesViewController.h"
+#import "Mumble-Swift.h"
 #import "MUServerRootViewController.h"
 #import "MUNotificationController.h"
 #import "MULegalViewController.h"

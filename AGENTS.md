@@ -10,4 +10,17 @@
 - **Testing**: Running `xcodebuild` or the iOS simulator is not possible in this Linux environment. Mark any instructions requiring Xcode as non-executable here.
 - **Style**: Follow Swift naming conventions, use optionals and enums where sensible, and drop C-style macros.
 
+Completed tasks
+===============
+- Migrated the web view code to **WKWebView**.
+- Replaced **SenTestingKit** with **XCTest**.
+- Rewrote certificate controllers in Swift and deleted the old Objective‑C implementations.
+- Converted most user interfaces from xib files to storyboards, including the former `MainWindow.xib`.
+- Converted `MUPreferencesViewController` to Swift.
+
+Open tasks
+==========
+- Migrate the remaining Objective‑C controller `MUConnectionController` to Swift.
+- Adopt modern audio APIs such as `AVAudioSession` and `AVAudioEngine`.
+
 

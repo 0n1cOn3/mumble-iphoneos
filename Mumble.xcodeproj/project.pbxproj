@@ -10,7 +10,7 @@
 		0EEEF3B42DF1E5450042C0A8 /* libFMDB-IOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEEF35C2DF1DC6D0042C0A8 /* libFMDB-IOS.a */; };
 		0EF3A4672DC2573900028454 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2861C2AD116BE9B5002B8514 /* AudioToolbox.framework */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		2801C35B11CA9F1A00E664E8 /* MUPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2801C35A11CA9F1A00E664E8 /* MUPreferencesViewController.m */; };
+               2801C35B11CA9F1A00E664E8 /* MUPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801C35A11CA9F1A00E664E8 /* MUPreferencesViewController.swift */; };
 		280256381510D70D00178B08 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 280256361510D70D00178B08 /* Localizable.strings */; };
 		2802AC0014C9E948000983A5 /* MUDataURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2802ABFF14C9E948000983A5 /* MUDataURL.m */; };
 		2802AC0314CB0131000983A5 /* MUImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2802AC0214CB0131000983A5 /* MUImage.m */; };
@@ -270,8 +270,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Mumble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mumble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		2801C35911CA9F1A00E664E8 /* MUPreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUPreferencesViewController.h; sourceTree = "<group>"; };
-		2801C35A11CA9F1A00E664E8 /* MUPreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUPreferencesViewController.m; sourceTree = "<group>"; };
+               2801C35A11CA9F1A00E664E8 /* MUPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUPreferencesViewController.swift; sourceTree = "<group>"; };
 		280256371510D70D00178B08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		2802563B1510DDCA00178B08 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = Localizable.strings; sourceTree = "<group>"; };
 		2802ABFE14C9E948000983A5 /* MUDataURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUDataURL.h; sourceTree = "<group>"; };
@@ -680,8 +679,7 @@
 		2838EA0C1293165700035C5D /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				2801C35911CA9F1A00E664E8 /* MUPreferencesViewController.h */,
-				2801C35A11CA9F1A00E664E8 /* MUPreferencesViewController.m */,
+                               2801C35A11CA9F1A00E664E8 /* MUPreferencesViewController.swift */,
 				2838EA0D129316C200035C5D /* MUCertificatePreferencesViewController.h */,
 				2838EA0E129316C200035C5D /* MUCertificatePreferencesViewController.m */,
 				283363D913EF154C00A04F04 /* MUAudioTransmissionPreferencesViewController.h */,
@@ -1255,7 +1253,7 @@
 				287BA3A611B996D90010E031 /* MUFavouriteServerEditViewController.m in Sources */,
 				28C6EF0A11BBF38100E426C8 /* MUCountryServerListController.m in Sources */,
 				289D254C11BC28BC00E39F2C /* MULanServerListController.m in Sources */,
-				2801C35B11CA9F1A00E664E8 /* MUPreferencesViewController.m in Sources */,
+                               2801C35B11CA9F1A00E664E8 /* MUPreferencesViewController.swift in Sources */,
 				287639F911D29D99009DB8B6 /* MUCertificateCreationProgressView.m in Sources */,
 				2858A5AD123BA08D00A82155 /* MUCertificateCell.m in Sources */,
 				2882858118CE40C80034F319 /* MUBackgroundView.m in Sources */,
