@@ -17,8 +17,7 @@
 #import <MumbleKit/MKAudio.h>
 #import <MumbleKit/MKVersion.h>
 
-@interface MUApplicationDelegate () <UIApplicationDelegate,
-                                     UIAlertViewDelegate> {
+@interface MUApplicationDelegate () <UIApplicationDelegate> {
     UIWindow                  *_window;
     UINavigationController    *_navigationController;
     MUPublicServerListFetcher *_publistFetcher;
