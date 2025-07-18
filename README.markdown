@@ -24,10 +24,11 @@ Completed tasks
 - Adopted XCTest and removed SenTestingKit usage.
 - Rewrote certificate controllers in Swift.
 - Converted most interfaces from xib files to storyboards.
+- Converted `MUPreferencesViewController` to Swift and cleaned up related Objective-C files.
 
 Open tasks
 ==========
-- Migrate the remaining Objective-C codebase to Swift.
+- Migrate `MUConnectionController` to Swift.
 - Adopt modern audio APIs such as AVAudioSession and AVAudioEngine.
 
 Building it
