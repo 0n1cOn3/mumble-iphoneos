@@ -27,6 +27,9 @@
                         <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                         <wkPreferences key="preferences" javaScriptEnabled="NO"/>
                     </wkWebViewConfiguration>
+                    <connections>
+                        <outlet property="navigationDelegate" destination="-1" id="ykj-JY-pXx"/>
+                    </connections>
                 </wkWebView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
