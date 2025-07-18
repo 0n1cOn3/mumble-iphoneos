@@ -6,22 +6,22 @@
 #import "MUTextMessage.h"
 #import "MUColor.h"
 
-#define kBalloonWidth                190.0f
-#define kBalloonTopMargin            8.0f
-#define kBalloonBottomMargin         10.0f
-#define kBalloonMarginTailSide       19.0f
-#define kBalloonMarginNonTailSide    11.0f
-#define kBalloonTopPadding           3.0f
-#define kBalloonBottomPadding        3.0f
-#define kBalloonTimestampSpacing     5.0f
-#define kBalloonTopInset             14.0f
-#define kBalloonBottomInset          17.0f
-#define kBalloonTailInset            23.0f
-#define kBalloonNoTailInset          16.0f
-#define kBalloonFooterTopMargin      2.0f
-#define kBalloonFooterBoxPadding     2.0f
-#define kBalloonImageTopPadding      2.0f
-#define kBalloonImageBottomPadding   2.0f
+static const CGFloat balloonWidth             = 190.0f;
+static const CGFloat balloonTopMargin         = 8.0f;
+static const CGFloat balloonBottomMargin      = 10.0f;
+static const CGFloat balloonMarginTailSide    = 19.0f;
+static const CGFloat balloonMarginNonTailSide = 11.0f;
+static const CGFloat balloonTopPadding        = 3.0f;
+static const CGFloat balloonBottomPadding     = 3.0f;
+static const CGFloat balloonTimestampSpacing  = 5.0f;
+static const CGFloat balloonTopInset          = 14.0f;
+static const CGFloat balloonBottomInset       = 17.0f;
+static const CGFloat balloonTailInset         = 23.0f;
+static const CGFloat balloonNoTailInset       = 16.0f;
+static const CGFloat balloonFooterTopMargin   = 2.0f;
+static const CGFloat balloonFooterBoxPadding  = 2.0f;
+static const CGFloat balloonImageTopPadding   = 2.0f;
+static const CGFloat balloonImageBottomPadding = 2.0f;
 
 @interface MUMessageBubbleView : UIView {
     NSString                                  *_message;
@@ -59,7 +59,7 @@
 }
 
 + (CGSize) textSizeForText:(NSString *)text {
-    CGSize constraintSize = CGSizeMake(kBalloonWidth-(kBalloonMarginTailSide+kBalloonMarginNonTailSide), CGFLOAT_MAX);
+    CGSize constraintSize = CGSizeMake(balloonWidth-(balloonMarginTailSide+balloonMarginNonTailSide), CGFLOAT_MAX);
     
     CGRect rect = [text boundingRectWithSize:constraintSize
                                   options:NSStringDrawingUsesLineFragmentOrigin
@@ -69,7 +69,7 @@
 }
 
 + (CGSize) headingSizeForText:(NSString *)text {
-    CGSize constraintSize = CGSizeMake(kBalloonWidth-(kBalloonMarginTailSide+kBalloonMarginNonTailSide), CGFLOAT_MAX);
+    CGSize constraintSize = CGSizeMake(balloonWidth-(balloonMarginTailSide+balloonMarginNonTailSide), CGFLOAT_MAX);
     CGRect rect = [text boundingRectWithSize:constraintSize
                                   options:NSStringDrawingUsesLineFragmentOrigin
                                attributes:@{ NSFontAttributeName : [UIFont boldSystemFontOfSize:14.0f] }
@@ -78,7 +78,7 @@
 }
 
 + (CGSize) timestampSizeForText:(NSString *)text {
-    CGSize constraintSize = CGSizeMake(kBalloonWidth-(kBalloonMarginTailSide+kBalloonMarginNonTailSide), CGFLOAT_MAX);
+    CGSize constraintSize = CGSizeMake(balloonWidth-(balloonMarginTailSide+balloonMarginNonTailSide), CGFLOAT_MAX);
 
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = NSLineBreakByTruncatingHead;
@@ -93,7 +93,7 @@
 + (CGSize) footerSizeForText:(NSString *)text {
     if (text == nil)
         return CGSizeZero;
-    CGSize constraintSize = CGSizeMake(kBalloonWidth-(kBalloonMarginTailSide+kBalloonMarginNonTailSide), CGFLOAT_MAX);
+    CGSize constraintSize = CGSizeMake(balloonWidth-(balloonMarginTailSide+balloonMarginNonTailSide), CGFLOAT_MAX);
 
     CGRect rect = [text boundingRectWithSize:constraintSize
                                   options:NSStringDrawingUsesLineFragmentOrigin
@@ -114,12 +114,12 @@
     for (UIImage *image in images) {
         CGSize imgSize = [image size];
         if (imgSize.width < (sz.width - 40)) {
-            imagesHeight += kBalloonImageTopPadding + imgSize.height + kBalloonImageBottomPadding;
+            imagesHeight += balloonImageTopPadding + imgSize.height + balloonImageBottomPadding;
             [imageSizes addObject:NSStringFromCGSize(imgSize)];
         } else {
             CGFloat w = sz.width - 40;
             CGFloat h = imgSize.height * (w / imgSize.width);
-            imagesHeight += kBalloonImageTopPadding + h + kBalloonImageBottomPadding;
+            imagesHeight += balloonImageTopPadding + h + balloonImageBottomPadding;
             [imageSizes addObject:NSStringFromCGSize(CGSizeMake(w, h))];
         }
     }
@@ -136,7 +136,7 @@
     NSString *str = [MUMessageBubbleView stringForDate:date];
     CGSize timestampSize = [MUMessageBubbleView timestampSizeForText:str];
 
-    CGSize sz = CGSizeMake(MAX(textSize.width, headingSize.width + kBalloonTimestampSpacing + timestampSize.width)+(kBalloonMarginTailSide + kBalloonMarginNonTailSide), textSize.height+headingSize.height+footerSize.height+(kBalloonTopMargin+kBalloonBottomMargin)+(kBalloonTopPadding+kBalloonBottomPadding)+(footer?kBalloonFooterTopMargin:0));
+    CGSize sz = CGSizeMake(MAX(textSize.width, headingSize.width + balloonTimestampSpacing + timestampSize.width)+(balloonMarginTailSide + balloonMarginNonTailSide), textSize.height+headingSize.height+footerSize.height+(balloonTopMargin+balloonBottomMargin)+(balloonTopPadding+balloonBottomPadding)+(footer?balloonFooterTopMargin:0));
 
     CGSize imgSz = [MUMessageBubbleView imageSizeForImages:images resizedToFitWithinSize:sz andNewImageSizes:nil];
     sz.height += imgSz.height;
@@ -157,14 +157,14 @@
             } else {
                 balloon = [UIImage imageNamed:@"Balloon_2_Right"];
             }
-            stretchableBalloon = [balloon resizableImageWithCapInsets:UIEdgeInsetsMake(kBalloonTopInset, kBalloonNoTailInset, kBalloonBottomInset, kBalloonTailInset)];
+            stretchableBalloon = [balloon resizableImageWithCapInsets:UIEdgeInsetsMake(balloonTopInset, balloonNoTailInset, balloonBottomInset, balloonTailInset)];
         } else {
             if (_selected) {
                 balloon = [UIImage imageNamed:@"LeftBalloonSelectedMono"];
             } else {
                 balloon = [UIImage imageNamed:@"Balloon_2"];
             }
-            stretchableBalloon = [balloon resizableImageWithCapInsets:UIEdgeInsetsMake(kBalloonTopInset, kBalloonTailInset, kBalloonBottomInset, kBalloonNoTailInset)];
+            stretchableBalloon = [balloon resizableImageWithCapInsets:UIEdgeInsetsMake(balloonTopInset, balloonTailInset, balloonBottomInset, balloonNoTailInset)];
         }
     } else {
         if (_rightSide) {
@@ -173,14 +173,14 @@
             } else {
                 balloon = [UIImage imageNamed:@"Balloon_Blue"];
             }
-            stretchableBalloon = [balloon resizableImageWithCapInsets:UIEdgeInsetsMake(kBalloonTopInset, kBalloonNoTailInset, kBalloonBottomInset, kBalloonTailInset)];
+            stretchableBalloon = [balloon resizableImageWithCapInsets:UIEdgeInsetsMake(balloonTopInset, balloonNoTailInset, balloonBottomInset, balloonTailInset)];
         } else {
             if (_selected) {
                 balloon = [UIImage imageNamed:@"LeftBalloonSelected"];
             } else {
                 balloon = [UIImage imageNamed:@"Balloon_2"];
             }
-            stretchableBalloon = [balloon resizableImageWithCapInsets:UIEdgeInsetsMake(kBalloonTopInset, kBalloonTailInset, kBalloonBottomInset, kBalloonNoTailInset)];
+            stretchableBalloon = [balloon resizableImageWithCapInsets:UIEdgeInsetsMake(balloonTopInset, balloonTailInset, balloonBottomInset, balloonNoTailInset)];
         }
     }
 
@@ -197,9 +197,9 @@
 
     CGRect imgRect = CGRectMake(
         0.0f,
-        kBalloonTopPadding,
-        MAX(textSize.width, headingSize.width + kBalloonTimestampSpacing + timestampSize.width)+(kBalloonMarginTailSide + kBalloonMarginNonTailSide) + 10,
-        textSize.height+headingSize.height+footerSize.height+(kBalloonTopMargin + kBalloonBottomMargin)+(footer?kBalloonFooterTopMargin:0)
+        balloonTopPadding,
+        MAX(textSize.width, headingSize.width + balloonTimestampSpacing + timestampSize.width)+(balloonMarginTailSide + balloonMarginNonTailSide) + 10,
+        textSize.height+headingSize.height+footerSize.height+(balloonTopMargin + balloonBottomMargin)+(footer?balloonFooterTopMargin:0)
     );
     imgRect = CGRectMake(
         (int) CGRectGetMinX(imgRect),
@@ -213,15 +213,15 @@
     imgRect.size.height += imagesSize.height;
     imgRect.size.height = ceilf(imgRect.size.height);
     
-    CGRect headerRect = CGRectMake(kBalloonMarginTailSide, kBalloonTopPadding + kBalloonTopMargin, headingSize.width, headingSize.height);
-    CGRect timestampRect = CGRectMake(imgRect.size.width - kBalloonMarginNonTailSide - timestampSize.width, headerRect.origin.y, timestampSize.width, timestampSize.height);
-    CGRect textRect = CGRectMake(kBalloonMarginTailSide, kBalloonTopPadding + kBalloonTopMargin + headingSize.height, textSize.width, textSize.height);
+    CGRect headerRect = CGRectMake(balloonMarginTailSide, balloonTopPadding + balloonTopMargin, headingSize.width, headingSize.height);
+    CGRect timestampRect = CGRectMake(imgRect.size.width - balloonMarginNonTailSide - timestampSize.width, headerRect.origin.y, timestampSize.width, timestampSize.height);
+    CGRect textRect = CGRectMake(balloonMarginTailSide, balloonTopPadding + balloonTopMargin + headingSize.height, textSize.width, textSize.height);
     if (_rightSide) {
         CGRect frame = [self frame];
         imgRect.origin.x = CGRectGetWidth(frame) - imgRect.size.width;
-        headerRect.origin.x = imgRect.origin.x + kBalloonMarginNonTailSide;
-        timestampRect.origin.x = CGRectGetWidth(frame) - kBalloonMarginTailSide - timestampRect.size.width;
-        textRect.origin.x = imgRect.origin.x + kBalloonMarginNonTailSide;
+        headerRect.origin.x = imgRect.origin.x + balloonMarginNonTailSide;
+        timestampRect.origin.x = CGRectGetWidth(frame) - balloonMarginTailSide - timestampRect.size.width;
+        textRect.origin.x = imgRect.origin.x + balloonMarginNonTailSide;
     }
 
     [stretchableBalloon drawInRect:imgRect];
@@ -232,19 +232,19 @@
     CGFloat maxWidth = (timestampRect.origin.x + timestampRect.size.width) - headerRect.origin.x;
     CGRect shownImgRect = CGRectMake(0, textRect.origin.y+textRect.size.height, 0, 0);
     for (UIImage *shownImage in _shownImages) {
-        shownImgRect.origin.y += kBalloonImageTopPadding + shownImgRect.size.height;
+        shownImgRect.origin.y += balloonImageTopPadding + shownImgRect.size.height;
         CGSize imgSz = CGSizeFromString([newImageSizes objectAtIndex:i]);
         CGFloat leftPad = floorf((maxWidth - imgSz.width)/2);
         shownImgRect.origin.x = textRect.origin.x + leftPad;
         shownImgRect.size.width = imgSz.width;
         shownImgRect.size.height = imgSz.height;
         [shownImage drawInRect:shownImgRect];
-        shownImgRect.size.height += kBalloonImageBottomPadding;
+        shownImgRect.size.height += balloonImageBottomPadding;
         ++i;
     }
 
     CGRect footerRect = CGRectMake(textRect.origin.x,
-                                   textRect.origin.y + textRect.size.height+imagesSize.height + kBalloonFooterTopMargin,
+                                   textRect.origin.y + textRect.size.height+imagesSize.height + balloonFooterTopMargin,
                                    footerSize.width,
                                    footerSize.height);
     [[UIColor blackColor] set];
@@ -280,9 +280,9 @@
 
 - (CGRect) selectionRect {    
     if (_rightSide) {
-        return UIEdgeInsetsInsetRect(_imageRect, UIEdgeInsetsMake(kBalloonTopMargin, kBalloonMarginNonTailSide, kBalloonBottomMargin, kBalloonMarginTailSide));
+        return UIEdgeInsetsInsetRect(_imageRect, UIEdgeInsetsMake(balloonTopMargin, balloonMarginNonTailSide, balloonBottomMargin, balloonMarginTailSide));
     } else {
-        return UIEdgeInsetsInsetRect(_imageRect, UIEdgeInsetsMake(kBalloonTopMargin, kBalloonMarginTailSide, kBalloonBottomMargin, kBalloonMarginNonTailSide));
+        return UIEdgeInsetsInsetRect(_imageRect, UIEdgeInsetsMake(balloonTopMargin, balloonMarginTailSide, balloonBottomMargin, balloonMarginNonTailSide));
     }
 }
 
