@@ -311,6 +311,15 @@
 		28529B3A1541C042003DD813 /* certificatecreation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "certificatecreation@2x.png"; path = "Resources/certificatecreation@2x.png"; sourceTree = "<group>"; };
 		2854321F1F536122000E5E88 /* icon7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon7@3x.png"; sourceTree = "<group>"; };
 		2858A57F123B9E5700A82155 /* MUCertificateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUCertificateCell.xib; sourceTree = "<group>"; };
+		2858A5AB123BA08D00A82155 /* MUCertificateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUCertificateCell.h; sourceTree = "<group>"; };
+		2858A5AC123BA08D00A82155 /* MUCertificateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUCertificateCell.m; sourceTree = "<group>"; };
+		285AF2691840DEE20065E339 /* MUAudioMixerDebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUAudioMixerDebugViewController.h; sourceTree = "<group>"; };
+		285AF26A1840DEE20065E339 /* MUAudioMixerDebugViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUAudioMixerDebugViewController.m; sourceTree = "<group>"; };
+		285D6B6F16BEEFA700F239EB /* MUTextMessageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MUTextMessageProcessor.h; sourceTree = "<group>"; };
+		285D6B7016BEEFA700F239EB /* MUTextMessageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTextMessageProcessor.m; sourceTree = "<group>"; };
+		285D6B7316BF027A00F239EB /* MUTextMessageProcessorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUTextMessageProcessorTest.h; path = Tests/MUTextMessageProcessorTest.h; sourceTree = "<group>"; };
+		285D6B7416BF027A00F239EB /* MUTextMessageProcessorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUTextMessageProcessorTest.m; path = Tests/MUTextMessageProcessorTest.m; sourceTree = "<group>"; };
+    285D6B7C16BF02E900F239EB /* MumbleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MumbleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2858A5AB123BA08D00A82155 /* MUCertificateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCertificateCell.h; sourceTree = "<group>"; };
 		2858A5AC123BA08D00A82155 /* MUCertificateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUCertificateCell.m; sourceTree = "<group>"; };
 		285AF2691840DEE20065E339 /* MUAudioMixerDebugViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAudioMixerDebugViewController.h; sourceTree = "<group>"; };
@@ -650,7 +659,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* Mumble.app */,
-				285D6B7C16BF02E900F239EB /* MumbleTests.octest */,
+                               285D6B7C16BF02E900F239EB /* MumbleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -985,8 +994,8 @@
 			);
 			name = MumbleTests;
 			productName = MumbleTests;
-			productReference = 285D6B7C16BF02E900F239EB /* MumbleTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+                       productReference = 285D6B7C16BF02E900F239EB /* MumbleTests.xctest */;
+                       productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1414,7 +1423,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = octest;
+                               WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
@@ -1444,7 +1453,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
+                               WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -1474,7 +1483,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
+                               WRAPPER_EXTENSION = xctest;
 			};
 			name = AppStore;
 		};
@@ -1504,7 +1513,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
+                               WRAPPER_EXTENSION = xctest;
 			};
 			name = BetaDist;
 		};
