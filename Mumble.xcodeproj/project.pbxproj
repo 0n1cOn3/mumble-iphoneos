@@ -319,7 +319,7 @@
 		285D6B7016BEEFA700F239EB /* MUTextMessageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MUTextMessageProcessor.m; sourceTree = "<group>"; };
 		285D6B7316BF027A00F239EB /* MUTextMessageProcessorTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MUTextMessageProcessorTest.h; path = Tests/MUTextMessageProcessorTest.h; sourceTree = "<group>"; };
 		285D6B7416BF027A00F239EB /* MUTextMessageProcessorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MUTextMessageProcessorTest.m; path = Tests/MUTextMessageProcessorTest.m; sourceTree = "<group>"; };
-		285D6B7C16BF02E900F239EB /* MumbleTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MumbleTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+               285D6B7C16BF02E900F239EB /* MumbleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MumbleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		285D6B8316BF02E900F239EB /* MumbleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MumbleTests-Info.plist"; path = "Tests/MumbleTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		285D6B8516BF02E900F239EB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		285D6B8A16BF02E900F239EB /* MumbleTests.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MumbleTests.pch; path = Tests/MumbleTests.pch; sourceTree = SOURCE_ROOT; };
@@ -650,7 +650,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* Mumble.app */,
-				285D6B7C16BF02E900F239EB /* MumbleTests.octest */,
+                               285D6B7C16BF02E900F239EB /* MumbleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -985,8 +985,8 @@
 			);
 			name = MumbleTests;
 			productName = MumbleTests;
-			productReference = 285D6B7C16BF02E900F239EB /* MumbleTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+                       productReference = 285D6B7C16BF02E900F239EB /* MumbleTests.xctest */;
+                       productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1412,7 +1412,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = octest;
+                               WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
@@ -1442,7 +1442,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
+                               WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -1472,7 +1472,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
+                               WRAPPER_EXTENSION = xctest;
 			};
 			name = AppStore;
 		};
@@ -1502,7 +1502,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
+                               WRAPPER_EXTENSION = xctest;
 			};
 			name = BetaDist;
 		};
