@@ -27,10 +27,8 @@ Completed tasks
 
 Open tasks
 ==========
-- Remove unused Objective-C files left over from the pre-Swift codebase.
-- Convert the final remaining xib into a storyboard.
-- Convert remaining Objective-C controllers (e.g., MUPreferencesViewController, MUConnectionController) to Swift.
-- Modernize audio handling with AVAudioSession.
+- Migrate the remaining Objective-C codebase to Swift.
+- Adopt modern audio APIs such as AVAudioSession and AVAudioEngine.
 
 Building it
 ===========
