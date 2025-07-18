@@ -3,5 +3,5 @@
 // license that can be found in the LICENSE file.
 
 @interface MUCertificateCreationProgressView : UIViewController
-- (id) initWithName:(NSString *)name email:(NSString *)email;
++ (instancetype)controllerWithName:(NSString *)name email:(NSString *)email;
 @end

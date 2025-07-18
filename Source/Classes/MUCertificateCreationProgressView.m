@@ -22,16 +22,15 @@
 
 @implementation MUCertificateCreationProgressView
 
-- (id) initWithName:(NSString *)name email:(NSString *)email {
-    if (self = [super initWithNibName:@"MUCertificateCreationProgressView" bundle:nil]) {
-        _identityName = name;
-        _emailAddress = email;
-        
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-            [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
-        }
++ (instancetype)controllerWithName:(NSString *)name email:(NSString *)email {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MUCertificateCreationProgressView" bundle:nil];
+    MUCertificateCreationProgressView *vc = [sb instantiateInitialViewController];
+    vc->_identityName = name;
+    vc->_emailAddress = email;
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [vc.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     }
-    return self;
+    return vc;
 }
 
 - (void) viewDidLoad {

@@ -20,8 +20,10 @@
 @implementation MUCertificateCell
 
 + (MUCertificateCell *) loadFromNib {
-    NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"MUCertificateCell" owner:self options:nil];
-    return [array objectAtIndex:0];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MUCertificateCell" bundle:nil];
+    UITableViewController *tvc = [sb instantiateInitialViewController];
+    [tvc loadViewIfNeeded];
+    return [tvc.tableView dequeueReusableCellWithIdentifier:@"CertificateCell"];
 }
 
 - (void) setSubjectName:(NSString *)name {

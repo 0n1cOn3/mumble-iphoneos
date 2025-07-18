@@ -265,9 +265,8 @@ static void ShowAlertDialog(NSString *title, NSString *msg) {
         email = _emailAddress;
     }
 
-    MUCertificateCreationProgressView *progress = [[MUCertificateCreationProgressView alloc] initWithName:name email:email];
+    MUCertificateCreationProgressView *progress = [MUCertificateCreationProgressView controllerWithName:name email:email];
     [[self navigationController] pushViewController:progress animated:YES];
-    [progress release];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         OSStatus err = noErr;

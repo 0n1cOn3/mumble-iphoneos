@@ -3,4 +3,5 @@
 // license that can be found in the LICENSE file.
 
 @interface MULegalViewController : UIViewController
++ (instancetype)controller;
 @end

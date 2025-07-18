@@ -13,11 +13,9 @@
 
 @implementation MULegalViewController
 
-- (id) init {
-    if ((self = [super initWithNibName:@"MULegalViewController" bundle:nil])) {
-        // ...
-    }
-    return self;
++ (instancetype)controller {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MULegalViewController" bundle:nil];
+    return [sb instantiateInitialViewController];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
