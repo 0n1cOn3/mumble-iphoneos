@@ -292,11 +292,9 @@
 		28234D5C13F09148006B830D /* talkbutton_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "talkbutton_off@2x.png"; path = "Resources/talkbutton_off@2x.png"; sourceTree = "<group>"; };
 		28234D5D13F09148006B830D /* talkbutton_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = talkbutton_on.png; path = Resources/talkbutton_on.png; sourceTree = "<group>"; };
 		28234D5E13F09148006B830D /* talkbutton_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "talkbutton_on@2x.png"; path = "Resources/talkbutton_on@2x.png"; sourceTree = "<group>"; };
-		282F6A2313620BD5008F555B /* MUCertificateController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCertificateController.h; sourceTree = "<group>"; };
 		282F6A2413620BD5008F555B /* MUCertificateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUCertificateController.swift; sourceTree = "<group>"; };
 		283363D913EF154C00A04F04 /* MUAudioTransmissionPreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUAudioTransmissionPreferencesViewController.h; sourceTree = "<group>"; };
 		283363DA13EF154C00A04F04 /* MUAudioTransmissionPreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUAudioTransmissionPreferencesViewController.m; sourceTree = "<group>"; };
-		2836767B1525053A0015958E /* MUCertificateChainBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCertificateChainBuilder.h; sourceTree = "<group>"; };
 		2836767C1525053A0015958E /* MUCertificateChainBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUCertificateChainBuilder.swift; sourceTree = "<group>"; };
 		2838EA0D129316C200035C5D /* MUCertificatePreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCertificatePreferencesViewController.h; sourceTree = "<group>"; };
 		2838EA0E129316C200035C5D /* MUCertificatePreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUCertificatePreferencesViewController.m; sourceTree = "<group>"; };
@@ -407,9 +405,7 @@
                28851B93147DC97D00088C4F /* MULegalViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MULegalViewController.storyboard; sourceTree = "<group>"; };
 		288B55DE1252903300563A28 /* MUServerCertificateTrustViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUServerCertificateTrustViewController.h; sourceTree = "<group>"; };
 		288B55DF1252903300563A28 /* MUServerCertificateTrustViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUServerCertificateTrustViewController.m; sourceTree = "<group>"; };
-		288D6B5E123D08EE00D37EDE /* MUCertificateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCertificateViewController.h; sourceTree = "<group>"; };
 		288D6B5F123D08EE00D37EDE /* MUCertificateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUCertificateViewController.swift; sourceTree = "<group>"; };
-		28942D7A12456F9200C63A07 /* MUCertificateCreationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCertificateCreationView.h; sourceTree = "<group>"; };
 		28942D7B12456F9200C63A07 /* MUCertificateCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUCertificateCreationView.swift; sourceTree = "<group>"; };
 		28990AB0132FDA540034B406 /* libMumbleKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMumbleKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		289CBA16125693040015E58E /* MUServerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUServerViewController.h; sourceTree = "<group>"; };
@@ -441,7 +437,6 @@
 		28BE999C18CFF03D00910551 /* LeftBalloonSelectedMono@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LeftBalloonSelectedMono@2x.png"; path = "Resources/Apple/LeftBalloonSelectedMono@2x.png"; sourceTree = "<group>"; };
 		28BE999D18CFF03D00910551 /* RightBalloonSelectedMono.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RightBalloonSelectedMono.png; path = Resources/Apple/RightBalloonSelectedMono.png; sourceTree = "<group>"; };
 		28BE999E18CFF03D00910551 /* RightBalloonSelectedMono@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RightBalloonSelectedMono@2x.png"; path = "Resources/Apple/RightBalloonSelectedMono@2x.png"; sourceTree = "<group>"; };
-		28BF81D0139AFFD50078B722 /* MUCertificateDiskImportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUCertificateDiskImportViewController.h; sourceTree = "<group>"; };
 		28BF81D1139AFFD50078B722 /* MUCertificateDiskImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUCertificateDiskImportViewController.swift; sourceTree = "<group>"; };
 		28C6EF0911BBF38100E426C8 /* MUCountryServerListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUCountryServerListController.m; sourceTree = "<group>"; };
 		28D963951639B9E4002A9E73 /* iconpad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconpad.png; sourceTree = "<group>"; };
@@ -766,15 +761,10 @@
 				2858A5AB123BA08D00A82155 /* MUCertificateCell.h */,
 				2858A5AC123BA08D00A82155 /* MUCertificateCell.m */,
                                2858A57F123B9E5700A82155 /* MUCertificateCell.storyboard */,
-				288D6B5E123D08EE00D37EDE /* MUCertificateViewController.h */,
 				288D6B5F123D08EE00D37EDE /* MUCertificateViewController.swift */,
-				28942D7A12456F9200C63A07 /* MUCertificateCreationView.h */,
 				28942D7B12456F9200C63A07 /* MUCertificateCreationView.swift */,
-				282F6A2313620BD5008F555B /* MUCertificateController.h */,
 				282F6A2413620BD5008F555B /* MUCertificateController.swift */,
-				2836767B1525053A0015958E /* MUCertificateChainBuilder.h */,
 				2836767C1525053A0015958E /* MUCertificateChainBuilder.swift */,
-				28BF81D0139AFFD50078B722 /* MUCertificateDiskImportViewController.h */,
 				28BF81D1139AFFD50078B722 /* MUCertificateDiskImportViewController.swift */,
 			);
 			name = Certificates;
