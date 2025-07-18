@@ -6,7 +6,7 @@
 
 @import WebKit.WKWebView;
 
-@interface MULegalViewController () <UIWebViewDelegate> {
+@interface MULegalViewController () <WKNavigationDelegate> {
     IBOutlet WKWebView *_webView;
 }
 @end
@@ -18,6 +18,11 @@
         // ...
     }
     return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _webView.navigationDelegate = self;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -32,6 +37,23 @@
 
 - (void) doneButtonClicked:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webView:(WKWebView *)webView
+decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURL *url = navigationAction.request.URL;
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated && url) {
+        UIApplication *app = [UIApplication sharedApplication];
+        if ([app canOpenURL:url]) {
+            [app openURL:url options:@{} completionHandler:nil];
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
+    }
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 @end
