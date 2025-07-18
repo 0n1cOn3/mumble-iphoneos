@@ -22,12 +22,15 @@ Completed tasks
 ===============
 - Migrated to WKWebView for improved performance and security.
 - Adopted XCTest and removed SenTestingKit usage.
+- Rewrote certificate controllers in Swift.
 - Converted most interfaces from xib files to storyboards.
 
 Open tasks
 ==========
 - Remove unused Objective-C files left over from the pre-Swift codebase.
 - Convert the final remaining xib into a storyboard.
+- Convert remaining Objective-C controllers (e.g., MUPreferencesViewController, MUConnectionController) to Swift.
+- Modernize audio handling with AVAudioSession.
 
 Building it
 ===========
