@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <scenes>
+        <scene sceneID="mainScene">
+            <objects>
+                <application id="app" customClass="MUApplication">
+                    <connections>
+                        <outlet property="delegate" destination="appDelegate" id="delegateConn"/>
+                    </connections>
+                </application>
+                <customObject id="appDelegate" customClass="MUApplicationDelegate"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FR1" customClass="UIResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
