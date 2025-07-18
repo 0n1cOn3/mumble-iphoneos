@@ -36,7 +36,8 @@
 		28529B3B1541C043003DD813 /* certificatecreation.png in Resources */ = {isa = PBXBuildFile; fileRef = 28529B391541C042003DD813 /* certificatecreation.png */; };
 		28529B3C1541C043003DD813 /* certificatecreation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28529B3A1541C042003DD813 /* certificatecreation@2x.png */; };
 		285432201F536122000E5E88 /* icon7@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2854321F1F536122000E5E88 /* icon7@3x.png */; };
-		F385CB59D6DB4BA0A71BA31D /* MUCertificateCell.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16EEB685E84F4357BC24E496 /* MUCertificateCell.storyboard */; };
+F385CB59D6DB4BA0A71BA31D /* MUCertificateCell.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16EEB685E84F4357BC24E496 /* MUCertificateCell.storyboard */; };
+79CC6015716C4D7DB2810FAD /* MainWindow~iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79CC6014716C4D7DB2810FAC /* MainWindow~iPad.storyboard */; };
 		2858A5AD123BA08D00A82155 /* MUCertificateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2858A5AC123BA08D00A82155 /* MUCertificateCell.m */; };
 		285AF26B1840DEE20065E339 /* MUAudioMixerDebugViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 285AF26A1840DEE20065E339 /* MUAudioMixerDebugViewController.m */; };
 		285D6B7116BEEFA700F239EB /* MUTextMessageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 285D6B7016BEEFA700F239EB /* MUTextMessageProcessor.m */; };
@@ -1110,9 +1111,10 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				28BE999918CFED9A00910551 /* Balloon_2_Right.png in Resources */,
-				BB205396A585485A96B2A30B /* MUCertificateCreationProgressView.storyboard in Resources */,
-				F385CB59D6DB4BA0A71BA31D /* MUCertificateCell.storyboard in Resources */,
-				28DC1C5C13DE596B0037CDC2 /* authenticated.png in Resources */,
+BB205396A585485A96B2A30B /* MUCertificateCreationProgressView.storyboard in Resources */,
+F385CB59D6DB4BA0A71BA31D /* MUCertificateCell.storyboard in Resources */,
+79CC6015716C4D7DB2810FAD /* MainWindow~iPad.storyboard in Resources */,
+28DC1C5C13DE596B0037CDC2 /* authenticated.png in Resources */,
 				28DC1C5D13DE596B0037CDC2 /* authenticated@2x.png in Resources */,
 				28DC1C6513DE596B0037CDC2 /* certificatecell-selected.png in Resources */,
 				28DC1C6613DE596B0037CDC2 /* certificatecell-selected@2x.png in Resources */,
