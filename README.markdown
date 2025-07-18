@@ -13,8 +13,15 @@ and various other Unix-like systems.
 Visit our website at:
 <https://mumble.info/>
 
+Swift migration
+===============
+The project is being migrated to Swift 5 and now targets iOS 12 or later.
+Objective-C code will remain during the transition via bridging headers.
+
 Building it
 ===========
+
+**Note:** Building requires Xcode and cannot be performed in this Linux environment.
 
 To build this you need Xcode 16 and the latest iOS SDK from Apple.
 
@@ -28,7 +35,7 @@ To fetch the repository:
 
 Once this is done, you should be able to open up the Xcode
 project file for Mumble (Mumble.xcodeproj) in the root of
-the source tree and hit Cmd-B to build!
+the source tree and hit Cmd-B to build! *(non-executable here)*
 
 Extra tips for advanced users
 =============================
