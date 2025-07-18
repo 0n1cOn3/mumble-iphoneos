@@ -168,7 +168,8 @@
     [aboutAlert addAction: [UIAlertAction actionWithTitle:NSLocalizedString(@"Legal", nil)
                                                     style:UIAlertActionStyleDefault
                                                   handler:^(UIAlertAction * _Nonnull action) {
-        MULegalViewController *legalView = [[MULegalViewController alloc] init];
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MULegalViewController" bundle:nil];
+        MULegalViewController *legalView = [sb instantiateInitialViewController];
         UINavigationController *navController = [[UINavigationController alloc] init];
         [navController pushViewController:legalView animated:NO];
         [[self navigationController] presentViewController:navController animated:YES completion:nil];

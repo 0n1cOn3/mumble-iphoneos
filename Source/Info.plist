@@ -65,8 +65,10 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1003001001</string>
-	<key>NSMainNibFile</key>
-	<string>MainWindow</string>
+<key>NSMainNibFile</key>
+<string>MainWindow</string>
+<key>UIMainStoryboardFile~ipad</key>
+<string>MainWindow~iPad</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Mumble uses your microphone for voice chats</string>
 	<key>UIBackgroundModes</key>
