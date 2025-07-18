@@ -18,6 +18,17 @@ Swift migration
 The project is being migrated to Swift 5 and now targets iOS 12 or later.
 Objective-C code will remain during the transition via bridging headers.
 
+Completed tasks
+===============
+- Migrated to WKWebView for improved performance and security.
+- Adopted XCTest and removed SenTestingKit usage.
+- Converted most interfaces from xib files to storyboards.
+
+Open tasks
+==========
+- Remove unused Objective-C files left over from the pre-Swift codebase.
+- Convert the final remaining xib into a storyboard.
+
 Building it
 ===========
 
