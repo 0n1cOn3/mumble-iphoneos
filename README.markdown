@@ -24,6 +24,7 @@ Completed tasks
 - Adopted XCTest and removed SenTestingKit usage.
 - Rewrote certificate controllers in Swift.
 - Converted most interfaces from xib files to storyboards.
+- Converted `MUPreferencesViewController` to Swift and cleaned up related Objective-C files.
 
 Open tasks
 ==========
