@@ -4,8 +4,7 @@
 
 #import "MURemoteControlPreferencesViewController.h"
 #import "MURemoteControlServer.h"
-#import "MUImage.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 @interface MURemoteControlPreferencesViewController () {
 }

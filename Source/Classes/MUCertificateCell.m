@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #import "MUCertificateCell.h"
-#import "MUColor.h"
+#import "Mumble-Swift.h"
 
 @interface MUCertificateCell () {
     IBOutlet UIImageView  *_certImage;

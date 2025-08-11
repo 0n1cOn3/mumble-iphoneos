@@ -11,8 +11,7 @@
 #import "MUConnectionController.h"
 #import "MUNotificationController.h"
 #import "MURemoteControlServer.h"
-#import "MUImage.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 #import <MumbleKit/MKAudio.h>
 #import <MumbleKit/MKVersion.h>

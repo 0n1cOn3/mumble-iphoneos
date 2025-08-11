@@ -4,7 +4,7 @@
 
 #import "MUMessageBubbleTableViewCell.h"
 #import "MUTextMessage.h"
-#import "MUColor.h"
+#import "Mumble-Swift.h"
 
 static const CGFloat balloonWidth             = 190.0f;
 static const CGFloat balloonTopMargin         = 8.0f;

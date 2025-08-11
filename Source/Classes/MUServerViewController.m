@@ -5,8 +5,7 @@
 #import "MUServerViewController.h"
 #import "MUUserStateAcessoryView.h"
 #import "MUNotificationController.h"
-#import "MUColor.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 #import "MUServerTableViewCell.h"
 
 #import <MumbleKit/MKAudio.h>

@@ -8,7 +8,7 @@
 #import "MUCertificateViewController.h"
 #import "MUCertificateController.h"
 #import "MUCertificateDiskImportViewController.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 #import <MumbleKit/MKCertificate.h>
 

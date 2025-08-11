@@ -4,9 +4,7 @@
 
 #import "MUAudioSidetonePreferencesViewController.h"
 #import "MUTableViewHeaderLabel.h"
-#import "MUColor.h"
-#import "MUImage.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 @implementation MUAudioSidetonePreferencesViewController
 

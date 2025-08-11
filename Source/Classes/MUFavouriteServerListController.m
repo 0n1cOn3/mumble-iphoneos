@@ -10,7 +10,7 @@
 #import "MUTableViewHeaderLabel.h"
 #import "MUConnectionController.h"
 #import "MUServerCell.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 @interface MUFavouriteServerListController () {
     NSMutableArray     *_favouriteServers;

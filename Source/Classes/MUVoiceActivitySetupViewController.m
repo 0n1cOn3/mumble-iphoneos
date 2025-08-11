@@ -5,9 +5,7 @@
 #import "MUVoiceActivitySetupViewController.h"
 #import "MUTableViewHeaderLabel.h"
 #import "MUAudioBarViewCell.h"
-#import "MUColor.h"
-#import "MUImage.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 @implementation MUVoiceActivitySetupViewController
 

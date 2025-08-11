@@ -3,13 +3,10 @@
 // license that can be found in the LICENSE file.
 
 #import "MUFavouriteServerEditViewController.h"
-
-#import "MUColor.h"
 #import "MUDatabase.h"
 #import "MUFavouriteServer.h"
 #import "MUTableViewHeaderLabel.h"
-#import "MUImage.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 @interface MUFavouriteServerEditViewController () {
     BOOL               _editMode;

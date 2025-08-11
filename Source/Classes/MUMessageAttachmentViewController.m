@@ -5,8 +5,7 @@
 #import "MUMessageAttachmentViewController.h"
 #import "MUTableViewHeaderLabel.h"
 #import "MUImageViewController.h"
-#import "MUImage.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 @interface MUMessageAttachmentViewController () {
     NSArray *_links;

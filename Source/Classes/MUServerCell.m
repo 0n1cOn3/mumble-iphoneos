@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #import "MUServerCell.h"
-#import "MUColor.h"
+#import "Mumble-Swift.h"
 #import "MUFavouriteServer.h"
 
 @interface MUServerCell () {

@@ -11,8 +11,7 @@
 #import "MUServerRootViewController.h"
 #import "MUNotificationController.h"
 #import "MULegalViewController.h"
-#import "MUImage.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 @interface MUWelcomeScreenPhone () {
     NSInteger    _aboutWebsiteButton;

@@ -4,7 +4,7 @@
 
 #import "MUMessagesDatabase.h"
 #import "MUTextMessage.h"
-#import "MUDataURL.h"
+#import "Mumble-Swift.h"
 
 #import <MumbleKit/MKTextMessage.h>
 

@@ -16,10 +16,7 @@
 #import "MUMessageAttachmentViewController.h"
 #import "MUImageViewController.h"
 #import "MUMessagesDatabase.h"
-#import "MUDataURL.h"
-#import "MUColor.h"
-#import "MUImage.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 static UIView *MUMessagesViewControllerFindUIView(UIView *rootView, NSString *prefix) {
     for (UIView *subview in [rootView subviews]) {

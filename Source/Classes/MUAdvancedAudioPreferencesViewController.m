@@ -7,9 +7,7 @@
 #import "MUApplicationDelegate.h"
 #import "MUAudioQualityPreferencesViewController.h"
 #import "MUAudioSidetonePreferencesViewController.h"
-#import "MUColor.h"
-#import "MUImage.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 #import <MumbleKit/MKAudio.h>
 

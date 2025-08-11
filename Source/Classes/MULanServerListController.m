@@ -10,7 +10,7 @@
 #import "MUDatabase.h"
 #import "MUFavouriteServerListController.h"
 #import "MUConnectionController.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 static NSInteger NetServiceAlphabeticalSort(id arg1, id arg2, void *reverse) {
     if (reverse) {

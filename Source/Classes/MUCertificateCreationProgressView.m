@@ -3,9 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #import "MUCertificateCreationProgressView.h"
-#import "MUImage.h"
-#import "MUColor.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 @interface MUCertificateCreationProgressView () {
     IBOutlet UIImageView              *_backgroundImage;

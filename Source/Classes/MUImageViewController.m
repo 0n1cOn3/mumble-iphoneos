@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #import "MUImageViewController.h"
-#import "MUColor.h"
+#import "Mumble-Swift.h"
 
 @interface MUImageViewController () <UIScrollViewDelegate> {
     NSArray        *_images;

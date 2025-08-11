@@ -11,9 +11,7 @@
 #import "MUCertificateController.h"
 #import "MUTableViewHeaderLabel.h"
 #import "MURemoteControlServer.h"
-#import "MUColor.h"
-#import "MUImage.h"
-#import "MUBackgroundView.h"
+#import "Mumble-Swift.h"
 
 #import <MumbleKit/MKCertificate.h>
 

@@ -87,7 +87,7 @@
 		287BA33B11B97C470010E031 /* MUFavouriteServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 287BA33A11B97C470010E031 /* MUFavouriteServer.m */; };
 		287BA34011B97EEE0010E031 /* MUFavouriteServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287BA33F11B97EEE0010E031 /* MUFavouriteServerListController.m */; };
 		287BA3A611B996D90010E031 /* MUFavouriteServerEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 287BA3A511B996D90010E031 /* MUFavouriteServerEditViewController.m */; };
-		2882858118CE40C80034F319 /* MUBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2882858018CE40C80034F319 /* MUBackgroundView.m */; };
+               28E9DA071AA4E65100AAAF06 /* MUBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9DA041AA4E65100AAAF05 /* MUBackgroundView.swift */; };
 		28851B94147DC97E00088C4F /* MULegalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28851B92147DC97D00088C4F /* MULegalViewController.m */; };
                28851B95147DC97E00088C4F /* MULegalViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28851B93147DC97D00088C4F /* MULegalViewController.storyboard */; };
 		288B55E01252903300563A28 /* MUServerCertificateTrustViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 288B55DF1252903300563A28 /* MUServerCertificateTrustViewController.m */; };
@@ -396,8 +396,7 @@ F31A9825E6F747D8872A6EEA /* MUImage.swift */ = {isa = PBXFileReference; lastKnow
 		287BA33F11B97EEE0010E031 /* MUFavouriteServerListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUFavouriteServerListController.m; sourceTree = "<group>"; };
 		287BA3A411B996D90010E031 /* MUFavouriteServerEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUFavouriteServerEditViewController.h; sourceTree = "<group>"; };
 		287BA3A511B996D90010E031 /* MUFavouriteServerEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUFavouriteServerEditViewController.m; sourceTree = "<group>"; };
-		2882857F18CE40C80034F319 /* MUBackgroundView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUBackgroundView.h; sourceTree = "<group>"; };
-		2882858018CE40C80034F319 /* MUBackgroundView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUBackgroundView.m; sourceTree = "<group>"; };
+           28E9DA041AA4E65100AAAF05 /* MUBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MUBackgroundView.swift; sourceTree = "<group>"; };
 		28851B91147DC97D00088C4F /* MULegalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MULegalViewController.h; sourceTree = "<group>"; };
 		28851B92147DC97D00088C4F /* MULegalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MULegalViewController.m; sourceTree = "<group>"; };
                28851B93147DC97D00088C4F /* MULegalViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MULegalViewController.storyboard; sourceTree = "<group>"; };
@@ -617,10 +616,9 @@ F31A9825E6F747D8872A6EEA /* MUImage.swift */ = {isa = PBXFileReference; lastKnow
                                 28F9E1BE15EBDF2400D52001 /* MURemoteControlServer.m */,
                                 285D6B6F16BEEFA700F239EB /* MUTextMessageProcessor.h */,
                                 285D6B7016BEEFA700F239EB /* MUTextMessageProcessor.m */,
-                                285AF2691840DEE20065E339 /* MUAudioMixerDebugViewController.h */,
-				285AF26A1840DEE20065E339 /* MUAudioMixerDebugViewController.m */,
-				2882857F18CE40C80034F319 /* MUBackgroundView.h */,
-				2882858018CE40C80034F319 /* MUBackgroundView.m */,
+                               285AF2691840DEE20065E339 /* MUAudioMixerDebugViewController.h */,
+                               285AF26A1840DEE20065E339 /* MUAudioMixerDebugViewController.m */,
+                               28E9DA041AA4E65100AAAF05 /* MUBackgroundView.swift */,
                                28E9DA001AA4E65000AAAF02 /* MUHorizontalFlipTransitionDelegate.swift */,
 			);
 			name = Classes;
@@ -1248,10 +1246,10 @@ F31A9825E6F747D8872A6EEA /* MUImage.swift */ = {isa = PBXFileReference; lastKnow
 				28C6EF0A11BBF38100E426C8 /* MUCountryServerListController.m in Sources */,
 				289D254C11BC28BC00E39F2C /* MULanServerListController.m in Sources */,
 				2801C35B11CA9F1A00E664E8 /* MUPreferencesViewController.m in Sources */,
-				287639F911D29D99009DB8B6 /* MUCertificateCreationProgressView.m in Sources */,
-				2858A5AD123BA08D00A82155 /* MUCertificateCell.m in Sources */,
-				2882858118CE40C80034F319 /* MUBackgroundView.m in Sources */,
-				288D6B60123D08EE00D37EDE /* MUCertificateViewController.swift in Sources */,
+                               287639F911D29D99009DB8B6 /* MUCertificateCreationProgressView.m in Sources */,
+                               2858A5AD123BA08D00A82155 /* MUCertificateCell.m in Sources */,
+                               28E9DA071AA4E65100AAAF06 /* MUBackgroundView.swift in Sources */,
+                               288D6B60123D08EE00D37EDE /* MUCertificateViewController.swift in Sources */,
 				28942D7C12456F9200C63A07 /* MUCertificateCreationView.swift in Sources */,
 				288B55E01252903300563A28 /* MUServerCertificateTrustViewController.m in Sources */,
 				289CBA18125693040015E58E /* MUServerViewController.m in Sources */,
