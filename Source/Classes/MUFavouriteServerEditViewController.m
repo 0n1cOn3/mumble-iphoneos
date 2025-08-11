@@ -5,7 +5,6 @@
 #import "MUFavouriteServerEditViewController.h"
 #import "MUDatabase.h"
 #import "MUFavouriteServer.h"
-#import "MUTableViewHeaderLabel.h"
 #import "Mumble-Swift.h"
 
 @interface MUFavouriteServerEditViewController () {

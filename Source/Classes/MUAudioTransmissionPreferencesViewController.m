@@ -4,7 +4,6 @@
 
 #import "MUAudioTransmissionPreferencesViewController.h"
 #import "MUVoiceActivitySetupViewController.h"
-#import "MUTableViewHeaderLabel.h"
 #import "MUAudioBarViewCell.h"
 #import "Mumble-Swift.h"
 

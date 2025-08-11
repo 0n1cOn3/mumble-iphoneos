@@ -7,7 +7,6 @@
 #import "MUDatabase.h"
 #import "MUFavouriteServer.h"
 #import "MUFavouriteServerEditViewController.h"
-#import "MUTableViewHeaderLabel.h"
 #import "MUConnectionController.h"
 #import "MUServerCell.h"
 #import "Mumble-Swift.h"

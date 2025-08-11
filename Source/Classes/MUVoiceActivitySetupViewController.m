@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 #import "MUVoiceActivitySetupViewController.h"
-#import "MUTableViewHeaderLabel.h"
 #import "MUAudioBarViewCell.h"
 #import "Mumble-Swift.h"
 

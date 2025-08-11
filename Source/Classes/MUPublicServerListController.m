@@ -5,7 +5,6 @@
 #import "MUPublicServerList.h"
 #import "MUPublicServerListController.h"
 #import "MUCountryServerListController.h"
-#import "MUTableViewHeaderLabel.h"
 #import "Mumble-Swift.h"
 
 @interface MUPublicServerListController () {

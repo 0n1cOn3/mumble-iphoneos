@@ -8,7 +8,6 @@
 #import "MUAdvancedAudioPreferencesViewController.h"
 #import "MURemoteControlPreferencesViewController.h"
 #import "MUCertificateController.h"
-#import "MUTableViewHeaderLabel.h"
 #import "MURemoteControlServer.h"
 
 // Add further imports as Swift files are added

@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 #import "MUMessageAttachmentViewController.h"
-#import "MUTableViewHeaderLabel.h"
 #import "MUImageViewController.h"
 #import "Mumble-Swift.h"
 

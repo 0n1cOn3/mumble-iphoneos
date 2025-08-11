@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 #import "MUAudioSidetonePreferencesViewController.h"
-#import "MUTableViewHeaderLabel.h"
 #import "Mumble-Swift.h"
 
 @implementation MUAudioSidetonePreferencesViewController
