@@ -1,8 +1,6 @@
 #import <MumbleKit/MumbleKit.h>
 
 // Expose Objective-C headers to Swift
-#import "MUColor.h"
-#import "MUImage.h"
 #import "MUAudioBarView.h"
 #import "MUApplicationDelegate.h"
 #import "MUCertificatePreferencesViewController.h"
