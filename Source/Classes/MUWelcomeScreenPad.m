@@ -3,12 +3,12 @@
 // license that can be found in the LICENSE file.
 
 #import "MUWelcomeScreenPad.h"
-#import "MUPreferencesViewController.h"
 #import "MULegalViewController.h"
 #import "MUPopoverBackgroundView.h"
 #import "MUPublicServerListController.h"
 #import "MUFavouriteServerListController.h"
 #import "MULanServerListController.h"
+#import "Mumble-Swift.h"
 
 @interface MUWelcomeScreenPad () <UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate> {
     UIPopoverController   *_prefsPopover;
