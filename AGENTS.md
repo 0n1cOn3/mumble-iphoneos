@@ -21,5 +21,3 @@ Open tasks
 ==========
 - Migrate the remaining Objective‑C controllers (for example `MUPreferencesViewController` and `MUConnectionController`) to Swift.
 - Adopt modern audio APIs such as `AVAudioSession` and `AVAudioEngine`.
-
-

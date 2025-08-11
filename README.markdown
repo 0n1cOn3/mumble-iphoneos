@@ -27,7 +27,7 @@ Completed tasks
 
 Open tasks
 ==========
-- Migrate the remaining Objective-C codebase to Swift.
+- Migrate `MUConnectionController` to Swift.
 - Adopt modern audio APIs such as AVAudioSession and AVAudioEngine.
 
 Building it
